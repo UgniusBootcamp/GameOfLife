@@ -51,7 +51,7 @@ namespace GameOfLife.Entities
 
         public void SetCell(Cell cell)
         {
-            var previousCellState = GetCell(cell.X, cell.Y);
+            var previousCellState = _map[cell.X, cell.Y];
 
             if(previousCellState.IsAlive && !cell.IsAlive)
                 Population--;

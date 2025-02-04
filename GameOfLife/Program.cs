@@ -28,7 +28,10 @@ public class Program
 
         Map map = new(height, length);
 
-        IGame game = new Game(map);
+
+        IGameHandler gameHandler = new GameHandler();
+
+        IGame game = new Game(map, gameHandler, (g => new GamePrinter(g)));
 
         game.Run(generations);
     }
