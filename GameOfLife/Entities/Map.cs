@@ -23,6 +23,23 @@ namespace GameOfLife.Entities
             InitializeMap();
         }
 
+        public Map(IMap map)
+        {
+            Length = map.Length;
+            Height = map.Height;
+            Population = map.Population;
+            _map = new Cell[Height, Length];
+
+            for (int i = 0; i < Height; i++)
+            {
+                for (int j = 0; j < Length; j++)
+                {
+                    var cell = map.GetCell(i, j);
+                    _map[i, j] = new Cell(cell.X, cell.Y, cell.IsAlive);
+                }
+            }
+        }
+
         private void InitializeMap()
         {
             for (int i = 0; i < Height; i++)
