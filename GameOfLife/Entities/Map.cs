@@ -17,7 +17,7 @@ namespace GameOfLife.Entities
 
         public Map(int length, int height)
         {
-            if (length < 0 || length > int.MaxValue || height < 0 || height > int.MaxValue)
+            if (length < 0  || height < 0)
                 throw new ArgumentException("Invalid map size");
 
             _length = length;
