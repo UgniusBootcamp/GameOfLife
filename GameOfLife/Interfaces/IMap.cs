@@ -9,5 +9,6 @@ namespace GameOfLife.Interfaces
         void SetCell(Cell cell);
         int Length { get; }
         int Height { get; }
+        int Population { get; }
     }
 }

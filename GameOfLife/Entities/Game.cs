@@ -4,74 +4,28 @@ namespace GameOfLife.Entities
 {
     public class Game : IGame
     {
-        public int Generation { get; private set; } = 0;
-        public int Population { get; private set; } = 0;
         public IMap Map { get; private set; }
 
-        private readonly Lazy<IPrintable> _gamePrinter;
+        private readonly IPrintable _mapPrinter;
+        private readonly IGameHandler _gameHandler;
 
-        public Game(IMap map, Func<Game, IPrintable> printer)
+        public Game(IMap map, IGameHandler gameHandler)
         {
             Map = map;
-            _gamePrinter = new Lazy<IPrintable>(() => printer(this));
-        }
-
-        private int CountAliveNeighbours(int x, int y)
-        {
-            int count = 0;
-
-            for (int i = x - 1; i <= x + 1; i++)
-            {
-                for (int j = y - 1; j <= y + 1; j++)
-                {
-                    if (i == x && j == y || i < 0 || j < 0 || i >= Map.Height || j >= Map.Length)
-                    {
-                        continue;
-                    }
-                    if (Map.GetCell(i, j).IsAlive)
-                    {
-                        count++;
-                    }
-                }
-            }
-
-            return count;
-        }
-
-        private void NextGeneration()
-        {
-            int length = Map.Length;
-            int height = Map.Height;
-            int aliveCells = 0;
-
-            var nextMap = new Map(height, length);
-
-            for (int i = 0; i < height; i++)
-            {
-                for (int j = 0; j < length; j++)
-                {
-                    var cell = Map.GetCell(i, j);
-                    var aliveNeighbours = CountAliveNeighbours(i, j);
-
-                    var nextState = cell.NextState(aliveNeighbours);
-
-                    if (nextState) aliveCells++;
-
-                    nextMap.SetCell(new Cell(i, j, nextState));
-                }
-            }
-
-            Map = nextMap;
-            Population = aliveCells;
-            Generation++;
-        }
+            _gameHandler = gameHandler;
+            _mapPrinter = new MapPrinter(map);
+        }   
 
         public void Run(int iterations, int delay = 1000)
         {
             for (int i = 0; i <= iterations; i++)
             {
-                _gamePrinter.Value.Print();
-                NextGeneration();
+                Console.Clear();
+                Console.WriteLine($"Generation: {i}");
+                _mapPrinter.Print();
+
+                Map = _gameHandler.CalculateNextGeneration(Map);
+
                 Thread.Sleep(delay);
             }
         }

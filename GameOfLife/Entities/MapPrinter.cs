@@ -7,17 +7,13 @@ using GameOfLife.Interfaces;
 
 namespace GameOfLife.Entities
 {
-    public class GamePrinter(IGame game) : IPrintable
+    public class MapPrinter(IMap map) : IPrintable
     {
-        private IGame _game = game;
+        private IMap _map = map;
 
         public void Print()
         {
-            IMap _map = _game.Map;
-
-            Console.Clear();
-            Console.WriteLine($"Generation: {_game.Generation}");
-            Console.WriteLine($"Population: {_game.Population}");
+            Console.WriteLine($"Population: {_map.Population}");
             Console.WriteLine("+" + new String('-', _map.Length) + "+");
             for (int i = 0; i < _map.Height; i++)
             {
