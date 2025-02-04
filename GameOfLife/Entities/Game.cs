@@ -4,18 +4,15 @@ namespace GameOfLife.Entities
 {
     public class Game : IGame
     {
-        private int generation = 0;
-        private int population = 0;
-        private IMap _map;
-        private IPrintable _gameServicePrinter;
+        public int Generation { get; private set; } = 0;
+        public int Population { get; private set; } = 0;
+        public IMap Map { get; private set; }
 
-        public int Generation => generation;
-        public int Population => population;
-        public IMap Map => _map;
+        private IPrintable _gameServicePrinter;
 
         public Game(IMap map)
         {
-            _map = map;
+            Map = map;
             _gameServicePrinter = new GamePrinter(this);
         }
 
@@ -27,11 +24,11 @@ namespace GameOfLife.Entities
             {
                 for (int j = y - 1; j <= y + 1; j++)
                 {
-                    if (i == x && j == y || i < 0 || j < 0 || i >= _map.Height || j >= _map.Length)
+                    if (i == x && j == y || i < 0 || j < 0 || i >= Map.Height || j >= Map.Length)
                     {
                         continue;
                     }
-                    if (_map.GetCell(i, j).IsAlive)
+                    if (Map.GetCell(i, j).IsAlive)
                     {
                         count++;
                     }
@@ -43,8 +40,8 @@ namespace GameOfLife.Entities
 
         private void NextGeneration()
         {
-            int length = _map.Length;
-            int height = _map.Height;
+            int length = Map.Length;
+            int height = Map.Height;
             int aliveCells = 0;
 
             var nextMap = new Map(height, length);
@@ -53,7 +50,7 @@ namespace GameOfLife.Entities
             {
                 for (int j = 0; j < length; j++)
                 {
-                    var cell = _map.GetCell(i, j);
+                    var cell = Map.GetCell(i, j);
                     var aliveNeighbours = CountAliveNeighbours(i, j);
 
                     var nextState = cell.NextState(aliveNeighbours);
@@ -64,9 +61,9 @@ namespace GameOfLife.Entities
                 }
             }
 
-            _map = nextMap;
-            population = aliveCells;
-            generation++;
+            Map = nextMap;
+            Population = aliveCells;
+            Generation++;
         }
 
         public void Run(int iterations, int delay = 1000)

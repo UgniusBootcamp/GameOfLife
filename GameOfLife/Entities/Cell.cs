@@ -4,26 +4,21 @@ namespace GameOfLife.Entities
 {
     public class Cell : ICell
     {
-        private int x;
-        private int y;
-        private bool _isAlive;
+        public int X { get; private set; }
+        public int Y { get; private set; }
+        public bool IsAlive { get; private set; }
 
         public Cell(int x, int y, bool isAlive)
         {
-            this.x = x;
-            this.y = y;
-            _isAlive = isAlive;
+            X = x;
+            Y = y;
+            IsAlive = isAlive;
         }
 
-        public bool IsAlive => _isAlive;
-
-        public int X => x;
-
-        public int Y => y;
 
         public bool NextState(int liveNeighbours)
         {
-            if(_isAlive)
+            if(IsAlive)
                 return (liveNeighbours == 2 || liveNeighbours == 3);
 
             return liveNeighbours == 3;

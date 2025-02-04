@@ -10,6 +10,7 @@ namespace GameOfLife.Entities
     public class GamePrinter(IGame game) : IPrintable
     {
         private IGame _game = game;
+
         public void Print()
         {
             IMap _map = _game.Map;
