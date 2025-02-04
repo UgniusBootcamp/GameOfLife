@@ -11,17 +11,20 @@ public class Program
         int generations = 0;
 
         Console.WriteLine("Enter the length of the map: ");
-        length = Convert.ToInt32(Console.ReadLine());
+        if (!int.TryParse(Console.ReadLine(), out length))
+            length = 10;
 
         Console.WriteLine("Enter the height of the map: ");
-        height = Convert.ToInt32(Console.ReadLine());
+        if (!int.TryParse(Console.ReadLine(), out height))
+            height = 10;
 
         Console.WriteLine("Enter the number of generations: ");
-        generations = Convert.ToInt32(Console.ReadLine());
+        if (!int.TryParse(Console.ReadLine(), out generations))
+            generations = 100;
 
-        length = length < 0 ? length : 10;
-        height = height < 0 ? height : 10;
-        generations = generations < 0 ? generations : 100;
+        length = length < 0 ? 10 : length;
+        height = height < 0 ? 10 : height;
+        generations = generations < 0 ? 100 : generations;
 
         IGameService gameService = new GameService(length, height);
 
