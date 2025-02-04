@@ -6,7 +6,6 @@ namespace GameOfLife.Entities
     {
         public int Length { get; private set; }
         public int Height { get; private set; }
-        public int Population { get; private set; }
 
         private readonly Cell[,] _map;
         private readonly Random _random = new Random();
@@ -27,15 +26,13 @@ namespace GameOfLife.Entities
         {
             Length = map.Length;
             Height = map.Height;
-            Population = map.Population;
             _map = new Cell[Height, Length];
 
             for (int i = 0; i < Height; i++)
             {
                 for (int j = 0; j < Length; j++)
                 {
-                    var cell = map.GetCell(i, j);
-                    _map[i, j] = new Cell(cell.X, cell.Y, cell.IsAlive);
+                    _map[i, j] = new Cell(i, j, map.GetCell(i, j).IsAlive);
                 }
             }
         }
@@ -49,9 +46,6 @@ namespace GameOfLife.Entities
                     int random = _random.Next(0, 2);
 
                     bool isAlive = Convert.ToBoolean(random);
-
-                    if (isAlive)
-                        Population++;
 
                     _map[i, j] = new Cell(i, j, isAlive);
                 }
@@ -68,14 +62,29 @@ namespace GameOfLife.Entities
 
         public void SetCell(Cell cell)
         {
-            var previousCellState = _map[cell.X, cell.Y];
-
-            if(previousCellState.IsAlive && !cell.IsAlive)
-                Population--;
-            else if (!previousCellState.IsAlive && cell.IsAlive)
-                Population++;
-
             _map[cell.X, cell.Y] = cell;
         }
+
+        public int Population
+        {
+            get
+            {
+                int count = 0;
+                
+                Parallel.For(0, Height, i =>
+                {
+                    Parallel.For(0, Length, j =>
+                    {
+                        if (_map[i, j].IsAlive)
+                        {
+                            Interlocked.Increment(ref count);
+                        }
+                    });
+                });
+
+                return count;
+            }
+        }
+
     }
 }
