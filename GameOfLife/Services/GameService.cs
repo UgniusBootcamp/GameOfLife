@@ -22,7 +22,7 @@ namespace GameOfLife.Services
             {
                 for (int j = y - 1; j <= y + 1; j++)
                 {
-                    if (i == x && j == y || i < 0 || j < 0 || i > _map.Length || i > _map.Height )
+                    if (i == x && j == y || i < 0 || j < 0 || i >= _map.Length || j >= _map.Height )
                     {
                         continue;
                     }
@@ -44,9 +44,9 @@ namespace GameOfLife.Services
 
             var nextMap = new Map(length, height);
 
-            for (int i = 0; i < length - 1; i++)
+            for (int i = 0; i < length; i++)
             {
-                for (int j = 0; j < height - 1; j++)
+                for (int j = 0; j < height; j++)
                 {
                     var cell = _map.GetCell(i, j);
                     var aliveNeighbours = CountAliveNeighbours(i, j);

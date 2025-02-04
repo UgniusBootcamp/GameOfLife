@@ -15,20 +15,15 @@ public class Program
         Console.WriteLine("Enter the length of the map: ");
         length = Convert.ToInt32(Console.ReadLine());
 
-        if (length < 0 || length > int.MaxValue)
-            length = 10;
-
         Console.WriteLine("Enter the height of the map: ");
         height = Convert.ToInt32(Console.ReadLine());
-
-        if (height < 0 || height > int.MaxValue)
-            height = 10;
 
         Console.WriteLine("Enter the number of generations: ");
         generations = Convert.ToInt32(Console.ReadLine());
 
-        if (generations < 0 || generations > int.MaxValue)
-            generations = 100;
+        length = length < 0 ? length : 10;
+        height = height < 0 ? height : 10;
+        generations = generations < 0 ? generations : 100;
 
         IGameService gameService = new GameService(length, height);
 

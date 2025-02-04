@@ -41,7 +41,7 @@ namespace GameOfLife.Entities
 
         public Cell GetCell(int x, int y)
         {
-            if(x < 0 || y < 0 || x > _length || y > _height)
+            if(x < 0 || y < 0 || x >= _length || y >= _height)
                 throw new ArgumentException("Invalid coordinates");
 
             return _map[x, y];

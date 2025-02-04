@@ -28,7 +28,10 @@ namespace GameOfLife.Entities
 
         public bool NextState(int liveNeighbours)
         {
-            return (liveNeighbours == 2 || liveNeighbours == 3);
+            if(_isAlive)
+                return (liveNeighbours == 2 || liveNeighbours == 3);
+
+            return liveNeighbours == 3;
         }
     }
 }
