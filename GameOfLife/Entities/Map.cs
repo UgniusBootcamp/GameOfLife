@@ -2,7 +2,7 @@
 
 namespace GameOfLife.Entities
 {
-    public class Map : IMap, IPrintable
+    public class Map : IMap
     {
         private Cell[,] _map;
         private readonly int _length;
@@ -41,27 +41,12 @@ namespace GameOfLife.Entities
             return _map[x, y];
         }
 
-        public int Length => _length;
-        public int Height => _height;
-
-        public void Print()
-        {
-            Console.WriteLine("+" + new String('-', _length) + "+");
-            for(int i = 0; i < _length; i++)
-            {
-                Console.Write("|");
-                for (int j = 0; j < _height; j++)
-                {
-                    Console.Write(_map[i, j].IsAlive ? "0" : " ");
-                }
-                Console.WriteLine("|");
-            }
-            Console.WriteLine("+" + new String('-', _length) + "+");
-        }
-
         public void SetCell(Cell cell)
         {
             _map[cell.X, cell.Y] = cell;
         }
+
+        public int Length => _length;
+        public int Height => _height;
     }
 }

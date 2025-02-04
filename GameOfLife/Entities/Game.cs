@@ -1,17 +1,22 @@
-﻿using GameOfLife.Entities;
-using GameOfLife.Interfaces;
+﻿using GameOfLife.Interfaces;
 
-namespace GameOfLife.Services
+namespace GameOfLife.Entities
 {
-    public class GameService : IGameService, IPrintable
+    public class Game : IGame
     {
         private int generation = 0;
         private int population = 0;
-        private Map _map;
+        private IMap _map;
+        private IPrintable _gameServicePrinter;
 
-        public GameService(int mapLength, int mapHeight)
+        public int Generation => generation;
+        public int Population => population;
+        public IMap Map => _map;
+
+        public Game(IMap map)
         {
-            _map = new Map(mapLength, mapHeight);
+            _map = map;
+            _gameServicePrinter = new GamePrinter(this);
         }
 
         private int CountAliveNeighbours(int x, int y)
@@ -22,7 +27,7 @@ namespace GameOfLife.Services
             {
                 for (int j = y - 1; j <= y + 1; j++)
                 {
-                    if (i == x && j == y || i < 0 || j < 0 || i >= _map.Length || j >= _map.Height )
+                    if (i == x && j == y || i < 0 || j < 0 || i >= _map.Length || j >= _map.Height)
                     {
                         continue;
                     }
@@ -64,19 +69,11 @@ namespace GameOfLife.Services
             generation++;
         }
 
-        public void Print()
-        {
-            Console.Clear();
-            Console.WriteLine($"Generation: {generation}");
-            Console.WriteLine($"Population: {population}");
-            _map.Print();
-        }
-
         public void Run(int iterations, int delay = 1000)
         {
             for (int i = 0; i <= iterations; i++)
             {
-                Print();
+                _gameServicePrinter.Print();
                 NextGeneration();
                 Thread.Sleep(delay);
             }

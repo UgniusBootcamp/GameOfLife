@@ -1,5 +1,5 @@
-﻿using GameOfLife.Interfaces;
-using GameOfLife.Services;
+﻿using GameOfLife.Entities;
+using GameOfLife.Interfaces;
 
 public class Program
 {
@@ -26,8 +26,10 @@ public class Program
         height = height < 0 ? 10 : height;
         generations = generations < 0 ? 100 : generations;
 
-        IGameService gameService = new GameService(length, height);
+        Map map = new Map(length, height);
 
-        gameService.Run(generations);
+        IGame game = new Game(map);
+
+        game.Run(generations);
     }
 }
