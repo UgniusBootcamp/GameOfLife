@@ -28,8 +28,9 @@ public class Program
 
         Map map = new(height, length);
 
+        IRule defaultGameRule = new DefaultRule();
 
-        IGameHandler gameHandler = new GameHandler();
+        IGameHandler gameHandler = new GameHandler(defaultGameRule);
 
         IGame game = new Game(map, gameHandler, (g => new GamePrinter(g)));
 

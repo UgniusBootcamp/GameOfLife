@@ -1,9 +1,12 @@
-﻿using GameOfLife.Interfaces;
+﻿using System.Data;
+using GameOfLife.Interfaces;
 
 namespace GameOfLife.Entities
 {
-    public class GameHandler : IGameHandler
+    public class GameHandler(IRule rule) : IGameHandler
     {
+        private readonly IRule _rule = rule;
+
         public IMap CalculateNextGeneration(IMap map)
         {
             int length = map.Length;
@@ -18,7 +21,7 @@ namespace GameOfLife.Entities
                     var cell = map.GetCell(i, j);
                     var aliveNeighbours = CountAliveNeighbours(i, j, map);
 
-                    var nextState = cell.NextState(aliveNeighbours);
+                    var nextState = _rule.ShouldLive(cell.IsAlive, aliveNeighbours);
 
                     nextMap.SetCell(new Cell(i, j, nextState));
                 });

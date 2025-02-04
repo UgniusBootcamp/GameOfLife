@@ -14,14 +14,5 @@ namespace GameOfLife.Entities
             Y = y;
             IsAlive = isAlive;
         }
-
-
-        public bool NextState(int liveNeighbours)
-        {
-            if(IsAlive)
-                return (liveNeighbours == 2 || liveNeighbours == 3);
-
-            return liveNeighbours == 3;
-        }
     }
 }
