@@ -14,6 +14,7 @@ namespace GameOfLife.Entities
             Console.WriteLine($"Generation: {_game.Generation}");
             Console.WriteLine($"Population: {map.Population}");
             Console.WriteLine("+" + new String('-', map.Length) + "+");
+
             for (int i = 0; i < map.Height; i++)
             {
                 Console.Write("|");
@@ -23,6 +24,7 @@ namespace GameOfLife.Entities
                 }
                 Console.WriteLine("|");
             }
+
             Console.WriteLine("+" + new String('-', map.Length) + "+");
         }
     }

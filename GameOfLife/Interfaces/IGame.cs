@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace GameOfLife.Interfaces
+﻿namespace GameOfLife.Interfaces
 {
     public interface IGame
     {

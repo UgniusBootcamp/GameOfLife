@@ -1,5 +1,4 @@
-﻿using System.Data;
-using GameOfLife.Interfaces;
+﻿using GameOfLife.Interfaces;
 
 namespace GameOfLife.Entities
 {

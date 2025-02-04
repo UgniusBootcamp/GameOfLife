@@ -24,6 +24,7 @@ namespace GameOfLife.Entities
             for (int i = 0; i <= iterations; i++)
             {
                 Map = _gameHandler.CalculateNextGeneration(Map);
+
                 Generation++;
 
                 _gamePrinter.Print();

@@ -85,6 +85,5 @@ namespace GameOfLife.Entities
                 return count;
             }
         }
-
     }
 }

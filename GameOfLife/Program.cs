@@ -8,7 +8,7 @@ public class Program
         int length;
         int height;
 
-        int generations = 0;
+        int generations;
 
         Console.WriteLine("Enter the length of the map: ");
         if (!int.TryParse(Console.ReadLine(), out length))
