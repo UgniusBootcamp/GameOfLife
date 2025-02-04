@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using GameOfLife.Entities;
-using GameOfLife.Interfaces;
+﻿using GameOfLife.Interfaces;
 using GameOfLife.Services;
 
 public class Program

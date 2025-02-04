@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GameOfLife.Interfaces;
-using GameOfLife.Services;
+﻿using GameOfLife.Interfaces;
 
 namespace GameOfLife.Entities
 {
