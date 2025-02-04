@@ -8,12 +8,12 @@ namespace GameOfLife.Entities
         public int Population { get; private set; } = 0;
         public IMap Map { get; private set; }
 
-        private IPrintable _gameServicePrinter;
+        private readonly Lazy<IPrintable> _gamePrinter;
 
-        public Game(IMap map)
+        public Game(IMap map, Func<Game, IPrintable> printer)
         {
             Map = map;
-            _gameServicePrinter = new GamePrinter(this);
+            _gamePrinter = new Lazy<IPrintable>(() => printer(this));
         }
 
         private int CountAliveNeighbours(int x, int y)
@@ -70,7 +70,7 @@ namespace GameOfLife.Entities
         {
             for (int i = 0; i <= iterations; i++)
             {
-                _gameServicePrinter.Print();
+                _gamePrinter.Value.Print();
                 NextGeneration();
                 Thread.Sleep(delay);
             }
