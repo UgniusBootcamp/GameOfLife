@@ -9,7 +9,7 @@ namespace GameOfLife.Entities
         private readonly int _height;
         private Random _random = new Random();
 
-        public Map(int length, int height)
+        public Map(int height, int length)
         {
             if (length < 0  || height < 0)
                 throw new ArgumentException("Invalid map size");
@@ -17,15 +17,15 @@ namespace GameOfLife.Entities
             _length = length;
             _height = height;
 
-            _map = new Cell[length, height];
+            _map = new Cell[height, length];
             InitializeMap();
         }
 
         private void InitializeMap()
         {
-            for (int i = 0; i < _length; i++)
+            for (int i = 0; i < _height; i++)
             {
-                for (int j = 0; j < _height; j++)
+                for (int j = 0; j < _length; j++)
                 {
                     int random = _random.Next(0, 2);
                     _map[i, j] = new Cell(i, j, Convert.ToBoolean(random));
@@ -35,7 +35,7 @@ namespace GameOfLife.Entities
 
         public Cell GetCell(int x, int y)
         {
-            if(x < 0 || y < 0 || x >= _length || y >= _height)
+            if(x < 0 || y < 0 || x >= _height || y >= _length)
                 throw new ArgumentException("Invalid coordinates");
 
             return _map[x, y];

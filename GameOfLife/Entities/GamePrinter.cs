@@ -18,10 +18,10 @@ namespace GameOfLife.Entities
             Console.WriteLine($"Generation: {_game.Generation}");
             Console.WriteLine($"Population: {_game.Population}");
             Console.WriteLine("+" + new String('-', _map.Length) + "+");
-            for (int i = 0; i < _map.Length; i++)
+            for (int i = 0; i < _map.Height; i++)
             {
                 Console.Write("|");
-                for (int j = 0; j < _map.Height; j++)
+                for (int j = 0; j < _map.Length; j++)
                 {
                     Console.Write(_map.GetCell(i, j).IsAlive ? "0" : " ");
                 }

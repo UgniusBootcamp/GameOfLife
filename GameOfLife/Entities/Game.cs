@@ -27,7 +27,7 @@ namespace GameOfLife.Entities
             {
                 for (int j = y - 1; j <= y + 1; j++)
                 {
-                    if (i == x && j == y || i < 0 || j < 0 || i >= _map.Length || j >= _map.Height)
+                    if (i == x && j == y || i < 0 || j < 0 || i >= _map.Height || j >= _map.Length)
                     {
                         continue;
                     }
@@ -47,11 +47,11 @@ namespace GameOfLife.Entities
             int height = _map.Height;
             int aliveCells = 0;
 
-            var nextMap = new Map(length, height);
+            var nextMap = new Map(height, length);
 
-            for (int i = 0; i < length; i++)
+            for (int i = 0; i < height; i++)
             {
-                for (int j = 0; j < height; j++)
+                for (int j = 0; j < length; j++)
                 {
                     var cell = _map.GetCell(i, j);
                     var aliveNeighbours = CountAliveNeighbours(i, j);

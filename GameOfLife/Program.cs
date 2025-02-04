@@ -26,7 +26,7 @@ public class Program
         height = height < 0 ? 10 : height;
         generations = generations < 0 ? 100 : generations;
 
-        Map map = new Map(length, height);
+        Map map = new(height, length);
 
         IGame game = new Game(map);
 
