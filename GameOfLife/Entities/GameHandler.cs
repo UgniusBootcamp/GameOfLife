@@ -13,7 +13,7 @@ namespace GameOfLife.Entities
 
             Parallel.For(0, height, i=>
             {
-                Parallel.For(0, height, j =>
+                Parallel.For(0, length, j =>
                 {
                     var cell = map.GetCell(i, j);
                     var aliveNeighbours = CountAliveNeighbours(i, j, map);
