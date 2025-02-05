@@ -15,7 +15,7 @@ namespace GameOfLife.Entities
 
             Parallel.For(0, height, i=>
             {
-                Parallel.For(0, length, j =>
+                for(int j = 0; j < length; j++)
                 {
                     var cell = map.GetCell(i, j);
                     var aliveNeighbours = CountAliveNeighbours(i, j, map);
@@ -23,7 +23,7 @@ namespace GameOfLife.Entities
                     var nextState = _rule.ShouldLive(cell.IsAlive, aliveNeighbours);
 
                     nextMap.SetCell(new Cell(i, j, nextState));
-                });
+                }
             });      
 
             return nextMap;
@@ -33,20 +33,17 @@ namespace GameOfLife.Entities
         {
             int count = 0;
 
-            Parallel.For(x - 1, x + 2, i =>
+            for(int i = x - 1; i <= x + 1; i++)
             {
-                Parallel.For(y - 1, y + 2, j =>
+                for(int j = y - 1; j <= y + 1; j++)
                 {
                     if (i == x && j == y || i < 0 || j < 0 || i >= map.Height || j >= map.Length)
-                    {
-                        return;
-                    }
+                        continue;
+
                     if (map.GetCell(i, j).IsAlive)
-                    {
-                        Interlocked.Increment(ref count);
-                    }
-                });
-            });        
+                        count++;
+                }
+            }
 
             return count;
         }

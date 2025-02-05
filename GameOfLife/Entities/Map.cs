@@ -71,16 +71,16 @@ namespace GameOfLife.Entities
             {
                 int count = 0;
                 
-                Parallel.For(0, Height, i =>
+                for (int i = 0; i < Height; i++)
                 {
-                    Parallel.For(0, Length, j =>
+                    for (int j = 0; j < Length; j++)
                     {
                         if (_map[i, j].IsAlive)
                         {
-                            Interlocked.Increment(ref count);
+                            count++;
                         }
-                    });
-                });
+                    }
+                }
 
                 return count;
             }
