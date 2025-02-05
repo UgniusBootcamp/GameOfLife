@@ -17,6 +17,6 @@ public class Program
 
         MenuManager menuManager = new MenuManager([startMenu, gameMenu]);
 
-        menuManager.ShowMenu();
+        menuManager.Run();
     }
 }
