@@ -1,6 +1,6 @@
-﻿using GameOfLife.Entities;
+﻿using GameOfLife.Data.Entities;
 
-namespace GameOfLife.Interfaces
+namespace GameOfLife.Data.Interfaces
 {
     public interface IMap
     {

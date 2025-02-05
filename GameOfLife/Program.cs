@@ -1,6 +1,6 @@
-﻿using GameOfLife.Constants;
-using GameOfLife.Entities;
-using GameOfLife.Interfaces;
+﻿using GameOfLife.Data.Constants;
+using GameOfLife.Data.Entities;
+using GameOfLife.Data.Interfaces;
 
 public class Program
 {

@@ -1,7 +1,7 @@
-﻿using GameOfLife.Constants;
-using GameOfLife.Interfaces;
+﻿using GameOfLife.Data.Constants;
+using GameOfLife.Data.Interfaces;
 
-namespace GameOfLife.Entities
+namespace GameOfLife.Data.Entities
 {
     public class Game : IGame
     {

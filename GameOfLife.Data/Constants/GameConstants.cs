@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameOfLife.Constants
+namespace GameOfLife.Data.Constants
 {
     public static class GameConstants
     {

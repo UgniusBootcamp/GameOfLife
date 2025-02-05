@@ -1,4 +1,4 @@
-﻿namespace GameOfLife.Interfaces
+﻿namespace GameOfLife.Data.Interfaces
 {
     public interface ICell
     {
