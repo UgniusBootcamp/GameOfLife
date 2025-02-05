@@ -1,40 +1,22 @@
-﻿using GameOfLife.Data.Constants;
+﻿using System.Security.Cryptography.X509Certificates;
+using GameOfLife.Data.Constants;
 using GameOfLife.Data.Entities;
-using GameOfLife.Data.Interfaces;
+using GameOfLife.Data.Entities.Menu;
+using GameOfLife.Data.Entities.MenuActions;
 
 public class Program
 {
     public static void Main(string[] args)
     {
-        int length;
-        int height;
+        var startGame = new StartGame("Start New Game");
+        var saveGame = new SaveGame("Save Game");
+        var exitGame = new ExitGame("Exit Game");
 
-        int generations;
+        var startMenu = new StartMenu([startGame, exitGame]);
+        var gameMenu = new GameMenu([saveGame, exitGame]);
 
-        Console.WriteLine(GameConstants.LenghtInputMessage);
-        if (!int.TryParse(Console.ReadLine(), out length))
-            length = GameConstants.DefaultMapLength;
+        MenuManager menuManager = new MenuManager([startMenu, gameMenu]);
 
-        Console.WriteLine(GameConstants.HeightInputMessage);
-        if (!int.TryParse(Console.ReadLine(), out height))
-            height = GameConstants.DefaultMapHeight;
-
-        Console.WriteLine(GameConstants.GenerationsInputMessage);
-        if (!int.TryParse(Console.ReadLine(), out generations))
-            generations = GameConstants.DefaultGenerations;
-
-        length = length < 0 ? GameConstants.DefaultMapLength : length;
-        height = height < 0 ? GameConstants.DefaultMapHeight : height;
-        generations = generations < 0 ? GameConstants.DefaultGenerations : generations;
-
-        Map map = new(height, length);
-
-        IRule defaultGameRule = new DefaultRule();
-
-        IGameHandler gameHandler = new GameHandler(defaultGameRule);
-
-        IGame game = new Game(map, gameHandler, (g => new GamePrinter(g)));
-
-        game.Run(generations);
+        menuManager.ShowMenu();
     }
 }
