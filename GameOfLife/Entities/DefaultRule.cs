@@ -6,7 +6,7 @@ namespace GameOfLife.Entities
     {
         private const int aliveNeighborCount = 2; // value for alive cell to stay alive
         private const int aliveNeighborCount2 = 3; // value for alive cell to stay alive
-        private const int resurrectionNeighborCount3 = 3; // value for dead cell to become alive
+        private const int resurrectionNeighborCount = 3; // value for dead cell to become alive
 
 
         /// <summary>
@@ -21,7 +21,7 @@ namespace GameOfLife.Entities
             if (isAlive)
                 return (liveNeighbors == aliveNeighborCount || liveNeighbors == aliveNeighborCount2;
 
-            return liveNeighbors == resurrectionNeighborCount3;
+            return liveNeighbors == resurrectionNeighborCount;
         }
     }
 }
