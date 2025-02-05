@@ -17,19 +17,19 @@ namespace GameOfLife.Entities
             Console.Clear();
             Console.WriteLine(GameConstants.GenerationMessage, _game.Generation);
             Console.WriteLine(GameConstants.PopulationMessage, map.Population);
-            Console.WriteLine("+" + new String('-', map.Length) + "+");
+            Console.WriteLine(GameConstants.MapCorner + new String(GameConstants.MapHorizontalBorder, map.Length) + GameConstants.MapCorner);
 
             for (int i = 0; i < map.Height; i++)
             {
-                Console.Write("|");
+                Console.Write(GameConstants.MapVerticalBorder);
                 for (int j = 0; j < map.Length; j++)
                 {
                     Console.Write(map.GetCell(i, j).IsAlive ? GameConstants.Alive : GameConstants.Dead);
                 }
-                Console.WriteLine("|");
+                Console.WriteLine(GameConstants.MapVerticalBorder);
             }
 
-            Console.WriteLine("+" + new String('-', map.Length) + "+");
+            Console.WriteLine(GameConstants.MapCorner + new String(GameConstants.MapHorizontalBorder, map.Length) + GameConstants.MapCorner);
         }
     }
 }

@@ -22,5 +22,28 @@ namespace GameOfLife.Constants
 
         public const string PopulationMessage = "Population: {0}"; // Message for displaying the current population
 
+        public const int DefaultAliveNeighborCount = 2; // value for alive cell to stay alive
+
+        public const int DefaultAliveNeighborCount2 = 3; // value for alive cell to stay alive
+
+        public  const int DefaultResurrectionNeighborCount = 3; // value for dead cell to become alive
+
+        public const int DefaultMapLength = 10; // Default map length
+
+        public const int DefaultMapHeight = 10; // Default map height
+
+        public const int DefaultGenerations = 1000; // Default number of generations
+
+        public const int DefaultDelay = 1000; // Default delay between generations
+
+        public const char MapCorner = '+'; // Map corner representation
+
+        public const char MapHorizontalBorder = '-'; // Map horizontal border representation
+
+        public const char MapVerticalBorder = '|'; // Map vertical border representation
+
+        public const string InvalidMapSizeMessage = "Invalid map size"; // Message for invalid map size
+
+        public const string InvalidCellPositionMessage = "Invalid cell position"; // Message for invalid cell position
     }
 }

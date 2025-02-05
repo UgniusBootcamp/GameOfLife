@@ -1,4 +1,6 @@
-﻿namespace GameOfLife.Interfaces
+﻿using GameOfLife.Constants;
+
+namespace GameOfLife.Interfaces
 {
     public interface IGame
     {
@@ -10,6 +12,6 @@
         /// </summary>
         /// <param name="iterations">number of iteration a game should run</param>
         /// <param name="delay">delay for each iteration</param>
-        void Run(int iterations, int delay = 1000);
+        void Run(int iterations, int delay = GameConstants.DefaultDelay);
     }
 }

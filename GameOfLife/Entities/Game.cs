@@ -1,4 +1,5 @@
-﻿using GameOfLife.Interfaces;
+﻿using GameOfLife.Constants;
+using GameOfLife.Interfaces;
 
 namespace GameOfLife.Entities
 {
@@ -28,7 +29,7 @@ namespace GameOfLife.Entities
         /// </summary>
         /// <param name="iterations">number of iteration a game should run</param>
         /// <param name="delay">delay for each iteration</param>
-        public void Run(int iterations, int delay = 1000)
+        public void Run(int iterations, int delay = GameConstants.DefaultDelay)
         {
             _gamePrinter.Print();
 

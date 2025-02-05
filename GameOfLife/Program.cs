@@ -13,19 +13,19 @@ public class Program
 
         Console.WriteLine(GameConstants.LenghtInputMessage);
         if (!int.TryParse(Console.ReadLine(), out length))
-            length = 10;
+            length = GameConstants.DefaultMapLength;
 
         Console.WriteLine(GameConstants.HeightInputMessage);
         if (!int.TryParse(Console.ReadLine(), out height))
-            height = 10;
+            height = GameConstants.DefaultMapHeight;
 
         Console.WriteLine(GameConstants.GenerationsInputMessage);
         if (!int.TryParse(Console.ReadLine(), out generations))
-            generations = 100;
+            generations = GameConstants.DefaultGenerations;
 
-        length = length < 0 ? 10 : length;
-        height = height < 0 ? 10 : height;
-        generations = generations < 0 ? 100 : generations;
+        length = length < 0 ? GameConstants.DefaultMapLength : length;
+        height = height < 0 ? GameConstants.DefaultMapHeight : height;
+        generations = generations < 0 ? GameConstants.DefaultGenerations : generations;
 
         Map map = new(height, length);
 

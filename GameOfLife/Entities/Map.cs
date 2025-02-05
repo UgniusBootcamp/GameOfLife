@@ -1,4 +1,5 @@
-﻿using GameOfLife.Interfaces;
+﻿using GameOfLife.Constants;
+using GameOfLife.Interfaces;
 
 namespace GameOfLife.Entities
 {
@@ -19,7 +20,7 @@ namespace GameOfLife.Entities
         public Map(int height, int length)
         {
             if (length < 0  || height < 0)
-                throw new ArgumentException("Invalid map size");
+                throw new ArgumentException(GameConstants.InvalidMapSizeMessage);
 
             Length = length;
             Height = height;
@@ -75,7 +76,7 @@ namespace GameOfLife.Entities
         public Cell GetCell(int x, int y)
         {
             if(x < 0 || y < 0 || x >= Height || y >= Length)
-                throw new ArgumentException("Invalid coordinates");
+                throw new ArgumentException(GameConstants.InvalidCellPositionMessage);
 
             return _map[x, y];
         }
