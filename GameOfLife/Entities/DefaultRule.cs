@@ -19,7 +19,7 @@ namespace GameOfLife.Entities
         public bool ShouldLive(bool isAlive, int liveNeighbors)
         {
             if (isAlive)
-                return (liveNeighbors == aliveNeighborCount || liveNeighbors == aliveNeighborCount2;
+                return (liveNeighbors == aliveNeighborCount || liveNeighbors == aliveNeighborCount2);
 
             return liveNeighbors == resurrectionNeighborCount;
         }
