@@ -1,4 +1,5 @@
-﻿using GameOfLife.Entities;
+﻿using GameOfLife.Constants;
+using GameOfLife.Entities;
 using GameOfLife.Interfaces;
 
 public class Program
@@ -10,15 +11,15 @@ public class Program
 
         int generations;
 
-        Console.WriteLine("Enter the length of the map: ");
+        Console.WriteLine(GameConstants.LenghtInputMessage);
         if (!int.TryParse(Console.ReadLine(), out length))
             length = 10;
 
-        Console.WriteLine("Enter the height of the map: ");
+        Console.WriteLine(GameConstants.HeightInputMessage);
         if (!int.TryParse(Console.ReadLine(), out height))
             height = 10;
 
-        Console.WriteLine("Enter the number of generations: ");
+        Console.WriteLine(GameConstants.GenerationsInputMessage);
         if (!int.TryParse(Console.ReadLine(), out generations))
             generations = 100;
 

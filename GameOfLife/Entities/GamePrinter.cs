@@ -1,4 +1,5 @@
-﻿using GameOfLife.Interfaces;
+﻿using GameOfLife.Constants;
+using GameOfLife.Interfaces;
 
 namespace GameOfLife.Entities
 {
@@ -14,8 +15,8 @@ namespace GameOfLife.Entities
             var map = _game.Map;
 
             Console.Clear();
-            Console.WriteLine($"Generation: {_game.Generation}");
-            Console.WriteLine($"Population: {map.Population}");
+            Console.WriteLine(GameConstants.GenerationMessage, _game.Generation);
+            Console.WriteLine(GameConstants.PopulationMessage, map.Population);
             Console.WriteLine("+" + new String('-', map.Length) + "+");
 
             for (int i = 0; i < map.Height; i++)
@@ -23,7 +24,7 @@ namespace GameOfLife.Entities
                 Console.Write("|");
                 for (int j = 0; j < map.Length; j++)
                 {
-                    Console.Write(map.GetCell(i, j).IsAlive ? "0" : " ");
+                    Console.Write(map.GetCell(i, j).IsAlive ? GameConstants.Alive : GameConstants.Dead);
                 }
                 Console.WriteLine("|");
             }
