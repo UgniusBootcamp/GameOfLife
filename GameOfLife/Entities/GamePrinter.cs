@@ -6,6 +6,9 @@ namespace GameOfLife.Entities
     {
         private readonly IGame _game = game;
 
+        /// <summary>
+        /// Print the game to the console
+        /// </summary>
         public void Print()
         { 
             var map = _game.Map;

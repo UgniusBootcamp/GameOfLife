@@ -10,6 +10,12 @@ namespace GameOfLife.Entities
         private readonly Cell[,] _map;
         private readonly Random _random = new Random();
 
+        /// <summary>
+        /// Constructor for Map
+        /// </summary>
+        /// <param name="height">height of map</param>
+        /// <param name="length">length of map</param>
+        /// <exception cref="ArgumentException">if lenght or height value is less than zero</exception>
         public Map(int height, int length)
         {
             if (length < 0  || height < 0)
@@ -22,6 +28,10 @@ namespace GameOfLife.Entities
             InitializeMap();
         }
 
+        /// <summary>
+        /// Constructor for Map
+        /// </summary>
+        /// <param name="map">copy of map</param>
         public Map(IMap map)
         {
             Length = map.Length;
@@ -37,6 +47,9 @@ namespace GameOfLife.Entities
             }
         }
 
+        /// <summary>
+        /// Initialize the map with random values
+        /// </summary>
         private void InitializeMap()
         {
             for (int i = 0; i < Height; i++)
@@ -52,6 +65,13 @@ namespace GameOfLife.Entities
             }
         }
 
+        /// <summary>
+        /// Get cell from map
+        /// </summary>
+        /// <param name="x">x coordinate</param>
+        /// <param name="y">y coordinate</param>
+        /// <returns>Cell from a map</returns>
+        /// <exception cref="ArgumentException">if coordinates are not from map</exception>
         public Cell GetCell(int x, int y)
         {
             if(x < 0 || y < 0 || x >= Height || y >= Length)
@@ -60,11 +80,18 @@ namespace GameOfLife.Entities
             return _map[x, y];
         }
 
+        /// <summary>
+        /// Set cell in map
+        /// </summary>
+        /// <param name="cell">cell to set</param>
         public void SetCell(Cell cell)
         {
             _map[cell.X, cell.Y] = cell;
         }
 
+        /// <summary>
+        /// Get the alive cells of the map count
+        /// </summary>
         public int Population
         {
             get

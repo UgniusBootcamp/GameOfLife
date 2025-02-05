@@ -6,6 +6,11 @@ namespace GameOfLife.Entities
     {
         private readonly IRule _rule = rule;
 
+        /// <summary>
+        /// Constructor for GameHandler
+        /// </summary>
+        /// <param name="map">map</param>
+        /// <returns>calculated map for next generation</returns>
         public IMap CalculateNextGeneration(IMap map)
         {
             int length = map.Length;
@@ -29,6 +34,13 @@ namespace GameOfLife.Entities
             return nextMap;
         }
 
+        /// <summary>
+        /// Count the number of alive neighbours
+        /// </summary>
+        /// <param name="x">cell coordinate x</param>
+        /// <param name="y">cell coordinate y</param>
+        /// <param name="map">current map</param>
+        /// <returns>count of alive neighbors</returns>
         private static int CountAliveNeighbours(int x, int y, IMap map)
         {
             int count = 0;
