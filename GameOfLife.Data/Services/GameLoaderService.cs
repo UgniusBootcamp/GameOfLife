@@ -3,9 +3,9 @@ using GameOfLife.Data.Interfaces.Game;
 
 namespace GameOfLife.Data.Services
 {
-    public class GameLoaderService : IGameControllerReceiver
+    public class GameLoaderService : IGameReceiver
     {
-        public GameController GetGameController()
+        public IGame GetGame()
         {
             throw new NotImplementedException();
         }

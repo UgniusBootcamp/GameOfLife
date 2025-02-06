@@ -8,11 +8,11 @@ using GameOfLife.Data.Interfaces.UI;
 
 namespace GameOfLife.Data.Services
 {
-    public class GameCreationService(IInputHandler inputHandler) : IGameControllerReceiver
+    public class GameCreationService(IInputHandler inputHandler) : IGameReceiver
     {
         private readonly IInputHandler _inputHandler = inputHandler;
 
-        public GameController GetGameController()
+        public IGame GetGame()
         {
             int length = _inputHandler.GetInt(GameConstants.LenghtInputMessage);
             int height = _inputHandler.GetInt(GameConstants.HeightInputMessage);
@@ -20,9 +20,8 @@ namespace GameOfLife.Data.Services
 
             IMap map = new Map(height, length);
             IGameHandler gameHandler = new GameHandler(new DefaultRule());
-            IGame game = new Game(map, gameHandler);
-            IPrintable printer = new GamePrinter(game);
-            return new GameController(game, printer);
+            return new Game(map, gameHandler);
+
         }
     }
 }

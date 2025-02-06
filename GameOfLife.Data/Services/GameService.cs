@@ -1,37 +1,62 @@
-﻿using GameOfLife.Data.Entities.Game;
+﻿using GameOfLife.Data.Constants;
+using GameOfLife.Data.Entities.Game;
 using GameOfLife.Data.Interfaces.Game;
+using GameOfLife.Data.Interfaces.UI;
 
 namespace GameOfLife.Data.Services
 {
-    public class GameService : IGameService
+    public class GameService(IGameReceiver gameReceiver, IGamePrinter gamePrinter) : GameController(gameReceiver, gamePrinter)
     {
-        private readonly IGameControllerReceiver _gameControllerReceiver;
-        private GameController? _gameControllers;
+        private List<IGame> games = new List<IGame>();
         private bool _isRunning = true;
+        private bool _isPaused;
 
-        public GameService(IGameControllerReceiver gameControllerReceiver)
+        public override void Execute()
         {
-            _gameControllerReceiver = gameControllerReceiver;
-        }
+            var game = _gameReceiver.GetGame();
+            var game1 = _gameReceiver.GetGame();
 
-        public void Execute()
-        {
-            var gameController = _gameControllerReceiver.GetGameController();
-
-            _gameControllers = gameController;
-
+            games.Add(game);
+            games.Add(game1);
 
             Console.WriteLine("Press 'P' to pause, 'R' to resume, 'Q' to exit");
 
-            var thread = new Thread(_gameControllers.Run);
-            thread.Start();
+            var gameTasks = games.Select(g => Task.Run(() => Run(g))).ToArray();
+            var keyPressTask = Task.Run(() => ListenForKeyPress());
 
-            ListenForKeyPress();
+            Task.WhenAll(gameTasks).ContinueWith(_ => _gamePrinter.PrintGames(games)).Wait();
+
+        }
+
+        private void Run(IGame game)
+        {
+            while (_isRunning)
+            {
+                if (_isPaused) continue;
+
+                game.Iterate();
+
+                Thread.Sleep(1000);
+            }
+        }
+
+        private void Pause()
+        {
+            _isPaused = true;
+        }
+
+        public void Resume()
+        {
+            _isPaused = false;
+        }
+
+        public void Exit()
+        {
+            _isRunning = false;
         }
 
         private void ListenForKeyPress()
         {
-
             while (_isRunning)
             {
                 if (Console.KeyAvailable)
@@ -40,15 +65,13 @@ namespace GameOfLife.Data.Services
                     switch (key)
                     {
                         case ConsoleKey.P:
-                            _gameControllers!.Pause();
+                            Pause();
                             break;
                         case ConsoleKey.R:
-                            _gameControllers!.Resume();
+                            Resume();
                             break;
                         case ConsoleKey.Q:
-                            _gameControllers!.Exit();
-                            Environment.Exit(0);
-                            _isRunning = false;
+                            Exit();
                             return;
                     }
                 }
