@@ -1,4 +1,4 @@
-﻿namespace GameOfLife.Data.Interfaces
+﻿namespace GameOfLife.Data.Interfaces.Game
 {
     public interface IGameHandler
     {

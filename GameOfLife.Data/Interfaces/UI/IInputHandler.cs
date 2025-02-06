@@ -1,5 +1,4 @@
-﻿
-namespace GameOfLife.Data.Interfaces
+﻿namespace GameOfLife.Data.Interfaces.UI
 {
     public interface IInputHandler
     {

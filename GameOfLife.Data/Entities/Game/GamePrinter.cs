@@ -1,8 +1,8 @@
 ﻿using GameOfLife.Data.Constants;
-using GameOfLife.Data.Interfaces;
-using System.Data;
+using GameOfLife.Data.Interfaces.Game;
+using GameOfLife.Data.Interfaces.UI;
 
-namespace GameOfLife.Data.Entities
+namespace GameOfLife.Data.Entities.Game
 {
     public class GamePrinter(IGame game) : IPrintable
     {

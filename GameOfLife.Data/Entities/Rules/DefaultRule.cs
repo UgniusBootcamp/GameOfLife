@@ -1,7 +1,7 @@
 ﻿using GameOfLife.Data.Constants;
 using GameOfLife.Data.Interfaces;
 
-namespace GameOfLife.Data.Entities
+namespace GameOfLife.Data.Entities.Rules
 {
     public class DefaultRule : IRule
     {
@@ -15,7 +15,7 @@ namespace GameOfLife.Data.Entities
         public bool ShouldLive(bool isAlive, int liveNeighbors)
         {
             if (isAlive)
-                return (liveNeighbors == GameConstants.DefaultAliveNeighborCount || liveNeighbors == GameConstants.DefaultAliveNeighborCount2);
+                return liveNeighbors == GameConstants.DefaultAliveNeighborCount || liveNeighbors == GameConstants.DefaultAliveNeighborCount2;
 
             return liveNeighbors == GameConstants.DefaultResurrectionNeighborCount;
         }

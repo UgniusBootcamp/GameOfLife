@@ -1,5 +1,5 @@
-﻿using GameOfLife.Data.Entities;
-using GameOfLife.Data.Interfaces;
+﻿using GameOfLife.Data.Entities.Game;
+using GameOfLife.Data.Interfaces.Game;
 
 namespace GameOfLife.Data.Services
 {
@@ -20,6 +20,9 @@ namespace GameOfLife.Data.Services
 
             _gameControllers = gameController;
 
+
+            Console.WriteLine("Press 'P' to pause, 'R' to resume, 'Q' to exit");
+
             var thread = new Thread(_gameControllers.Run);
             thread.Start();
 
@@ -28,7 +31,7 @@ namespace GameOfLife.Data.Services
 
         private void ListenForKeyPress()
         {
-            Console.WriteLine("Press 'P' to pause, 'R' to resume, 'Q' to exit");
+
             while (_isRunning)
             {
                 if (Console.KeyAvailable)

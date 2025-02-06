@@ -1,6 +1,6 @@
 ﻿using GameOfLife.Data.Constants;
 
-namespace GameOfLife.Data.Interfaces
+namespace GameOfLife.Data.Interfaces.Game
 {
     public interface IGame
     {

@@ -1,7 +1,8 @@
 ﻿using GameOfLife.Data.Constants;
 using GameOfLife.Data.Interfaces;
+using GameOfLife.Data.Interfaces.Game;
 
-namespace GameOfLife.Data.Entities
+namespace GameOfLife.Data.Entities.Game
 {
     public class Game : IGame
     {
@@ -31,6 +32,6 @@ namespace GameOfLife.Data.Entities
         {
             Map = _gameHandler.CalculateNextGeneration(Map);
             Generation++;
-        } 
+        }
     }
 }

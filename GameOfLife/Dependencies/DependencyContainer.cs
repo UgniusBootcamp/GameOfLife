@@ -1,4 +1,5 @@
-﻿using GameOfLife.Data.Interfaces;
+﻿using GameOfLife.Data.Interfaces.Game;
+using GameOfLife.Data.Interfaces.UI;
 using GameOfLife.Data.Services;
 using GameOfLife.UI;
 

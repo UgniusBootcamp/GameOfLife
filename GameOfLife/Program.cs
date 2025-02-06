@@ -1,4 +1,4 @@
-﻿using GameOfLife.Data.Entities;
+﻿using GameOfLife.Data.Entities.Menus;
 using GameOfLife.Data.Interfaces;
 using GameOfLife.Data.Services;
 using GameOfLife.Dependencies;

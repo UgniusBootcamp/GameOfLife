@@ -1,6 +1,10 @@
 ﻿using GameOfLife.Data.Constants;
 using GameOfLife.Data.Entities;
+using GameOfLife.Data.Entities.Game;
+using GameOfLife.Data.Entities.Rules;
 using GameOfLife.Data.Interfaces;
+using GameOfLife.Data.Interfaces.Game;
+using GameOfLife.Data.Interfaces.UI;
 
 namespace GameOfLife.Data.Services
 {

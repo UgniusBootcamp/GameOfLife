@@ -1,9 +1,8 @@
-﻿using System;
-using System.Threading;
-using GameOfLife.Data.Constants;
-using GameOfLife.Data.Interfaces;
+﻿using GameOfLife.Data.Constants;
+using GameOfLife.Data.Interfaces.Game;
+using GameOfLife.Data.Interfaces.UI;
 
-namespace GameOfLife.Data.Entities
+namespace GameOfLife.Data.Entities.Game
 {
     public class GameController
     {

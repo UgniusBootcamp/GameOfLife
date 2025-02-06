@@ -1,5 +1,5 @@
-﻿using GameOfLife.Data.Entities;
-using GameOfLife.Data.Interfaces;
+﻿using GameOfLife.Data.Entities.Game;
+using GameOfLife.Data.Interfaces.Game;
 
 namespace GameOfLife.Data.Services
 {
