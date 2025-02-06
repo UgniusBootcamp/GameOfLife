@@ -8,7 +8,15 @@ namespace GameOfLife.UI
         public int GetInt(string message)
         {
             Console.WriteLine(message);
-            return int.TryParse(Console.ReadLine(), out int result) ? result : GameConstants.DefaultMapSize;
+            int.TryParse(Console.ReadLine(), out int result);
+
+            return result;
+        }
+
+        public string? GetString(string message)
+        {
+            Console.WriteLine(message);
+            return Console.ReadLine();
         }
     }
 }

@@ -20,6 +20,8 @@
 
         public  const int DefaultResurrectionNeighborCount = 3; // value for dead cell to become alive
 
+        public const string DefaultGameFileName = "game"; // Default file name for saving the game
+
         public const int DefaultMapSize= 10; // Default map length
 
         public const int DefaultDelay = 1000; // Default delay between generations
@@ -36,6 +38,6 @@
 
         public const string GameRunningMessage = "Press 'P' to pause, 'Q' to exit"; // Message for game running
 
-        public const string GamePausedMessage = "Press 'R' to resume, 'Q' to exit"; // Message for game paused
+        public const string GamePausedMessage = "Press 'R' to resume, Press 'S' to save, 'Q' to exit"; // Message for game paused
     }
 }

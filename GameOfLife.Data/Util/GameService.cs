@@ -1,19 +1,19 @@
 ﻿using System.Threading;
 using GameOfLife.Data.Constants;
 using GameOfLife.Data.Entities.Games;
+using GameOfLife.Data.Interfaces;
 using GameOfLife.Data.Interfaces.Game;
 using GameOfLife.Data.Interfaces.UI;
 
 namespace GameOfLife.Data.Util
 {
-    public class GameService(IGameReceiver gameReceiver, IGamePrinter gamePrinter) : GameController(gameReceiver, gamePrinter)
+    public class GameService(IGameReceiver gameReceiver, IGamePrinter gamePrinter, IGameSaver gameSaver) : GameController(gameReceiver, gamePrinter, gameSaver)
     {
-        private List<IGame> games = new List<IGame>();
+        private readonly List<IGame> games = [];
         private bool _isRunning = true;
         private bool _isPaused;
         private Barrier? _barrier;
-        private string[] messages = { GameConstants.GameRunningMessage };
-
+        private string[] messages = [GameConstants.GameRunningMessage];
 
         public override void Execute()
         {
@@ -22,7 +22,6 @@ namespace GameOfLife.Data.Util
 
             games.Add(game);
             games.Add(game1);
-
 
             _barrier = new Barrier(games.Count, (b) =>
             {
@@ -37,7 +36,7 @@ namespace GameOfLife.Data.Util
             threads.ForEach(t => t.Join());
         }
 
-        private void Run(IGame game)
+        protected void Run(IGame game)
         {
             while (_isRunning)
             {
@@ -51,7 +50,7 @@ namespace GameOfLife.Data.Util
             }
         }
 
-        private void Print()
+        protected override void Print()
         {
             lock(_gamePrinter)
             {
@@ -59,26 +58,35 @@ namespace GameOfLife.Data.Util
             }
         }
 
-        private void Pause()
+        protected override void Pause()
         {
             _isPaused = true;
             messages = [GameConstants.GamePausedMessage, "Game is Paused"];
             Print();
         }
 
-        public void Resume()
+        protected override void Resume()
         {
             _isPaused = false;
             messages = [GameConstants.GameRunningMessage];
             Print();
         }
 
-        public void Exit()
+        protected override void Exit()
         {
             _isRunning = false;
         }
 
-        private void ListenForKeyPress()
+        protected override void Save()
+        {
+            if (_isRunning && _isPaused)
+            {
+                _gameSaver.SaveGames(games);
+                Print();
+            }
+        }
+
+        protected override void ListenForKeyPress()
         {
             while (_isRunning)
             {
@@ -96,6 +104,9 @@ namespace GameOfLife.Data.Util
                         case ConsoleKey.Q:
                             Exit();
                             return;
+                        case ConsoleKey.S:
+                            Save();
+                            break;
                     }
                 }
             }

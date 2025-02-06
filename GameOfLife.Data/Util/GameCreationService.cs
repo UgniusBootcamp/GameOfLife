@@ -15,7 +15,11 @@ namespace GameOfLife.Data.Util
         public IGame GetGame()
         {
             int length = _inputHandler.GetInt(GameConstants.LenghtInputMessage);
+            if (length <= 0) length = GameConstants.DefaultMapSize;
+
             int height = _inputHandler.GetInt(GameConstants.HeightInputMessage);
+            if (height <= 0) height = GameConstants.DefaultMapSize;
+
             Console.Clear();
 
             IMap map = new Map(height, length);

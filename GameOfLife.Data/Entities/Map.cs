@@ -1,4 +1,6 @@
-﻿using GameOfLife.Data.Constants;
+﻿using System.Text;
+using GameOfLife.Data.Constants;
+using GameOfLife.Data.Dto;
 using GameOfLife.Data.Interfaces;
 
 namespace GameOfLife.Data.Entities
@@ -90,6 +92,46 @@ namespace GameOfLife.Data.Entities
             _map[cell.X, cell.Y] = cell;
         }
 
+        public MapDto GetMapDto()
+        {
+            return new MapDto
+            {
+                Height = Height,
+                Length = Length,
+                Cells = CellsToString()
+            };
+        }
+
+        public IMap GetMap(MapDto dto)
+        {
+            var map = new Map(dto.Height, dto.Length);
+
+            for (int i = 0; i < dto.Height; i++)
+            {
+                for (int j = 0; j < dto.Length; j++)
+                {
+                    map.SetCell(new Cell(i, j, dto.Cells[i][j] == 1));
+                }
+            }
+            return map;
+        }
+
+        private List<string> CellsToString()
+        {
+            var list = new List<string>();
+
+            for (int i = 0; i < Height; i++)
+            {
+                var sb = new StringBuilder();
+                for (int j = 0; j < Length; j++)
+                {
+                    sb.Append(_map[i, j].IsAlive ? "1" : "0");
+                }
+                list.Add(sb.ToString());
+            }
+            return list;
+        }
+           
         /// <summary>
         /// Get the alive cells of the map count
         /// </summary>

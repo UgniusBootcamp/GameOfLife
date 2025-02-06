@@ -1,4 +1,5 @@
 ﻿using GameOfLife.Data.Constants;
+using GameOfLife.Data.Dto;
 using GameOfLife.Data.Interfaces;
 using GameOfLife.Data.Interfaces.Game;
 
@@ -32,6 +33,20 @@ namespace GameOfLife.Data.Entities.Games
         {
             Map = _gameHandler.CalculateNextGeneration(Map);
             Generation++;
+        }
+
+        public GameDto GetGameDto()
+        {
+            return new GameDto
+            {
+                Generation = Generation,
+                Map = Map.GetMapDto()
+            };
+        }
+
+        public IGame GetGame(GameDto dto, IGameHandler gameHandler)
+        {
+            return new Game(Map.GetMap(dto.Map), gameHandler);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using GameOfLife.Data.Entities;
+﻿using GameOfLife.Data.Dto;
+using GameOfLife.Data.Entities;
 
 namespace GameOfLife.Data.Interfaces
 {
@@ -18,8 +19,11 @@ namespace GameOfLife.Data.Interfaces
         /// </summary>
         /// <param name="cell">cell to set</param>
         void SetCell(Cell cell);
+
         int Length { get; }
         int Height { get; }
         int Population { get; }
+        MapDto GetMapDto();
+        IMap GetMap(MapDto dto);
     }
 }
