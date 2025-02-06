@@ -1,22 +1,28 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using GameOfLife.Data.Constants;
-using GameOfLife.Data.Entities;
-using GameOfLife.Data.Entities.Menu;
-using GameOfLife.Data.Entities.MenuActions;
+﻿using GameOfLife.Data.Entities;
+using GameOfLife.Data.Interfaces;
+using GameOfLife.Data.Services;
+using GameOfLife.Dependencies;
+using GameOfLife.UI;
 
 public class Program
 {
     public static void Main(string[] args)
     {
-        var startGame = new StartGame("Start New Game");
-        var saveGame = new SaveGame("Save Game");
-        var exitGame = new ExitGame("Exit Game");
 
-        var startMenu = new StartMenu([startGame, exitGame]);
-        var gameMenu = new GameMenu([saveGame, exitGame]);
+        GameService newGameService = new GameService(DependencyContainer.GameCreationService);
+        GameService oldGameService = new GameService(DependencyContainer.GameLoaderService);
 
-        MenuManager menuManager = new MenuManager([startMenu, gameMenu]);
 
-        menuManager.Run();
+        List<IMenuItem> items = new List<IMenuItem>()
+        {
+            new MenuItem( "Start Game", newGameService.Execute),
+            new MenuItem( "Load Game", oldGameService.Execute),
+            new MenuItem( "Exit", () => Environment.Exit(0))
+        };
+
+        Menu mainMenu = new ConsoleMenu(items);
+
+
+        mainMenu.Show();
     }
 }

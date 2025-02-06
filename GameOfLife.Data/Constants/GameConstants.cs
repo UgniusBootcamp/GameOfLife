@@ -16,8 +16,6 @@ namespace GameOfLife.Data.Constants
 
         public const string HeightInputMessage = "Enter the height of the map: "; // Message for inputting the height of the map
 
-        public const string GenerationsInputMessage = "Enter the number of generations: "; // Message for inputting the number of generations
-
         public const string GenerationMessage = "Generation: {0}"; // Message for displaying the current generation
 
         public const string PopulationMessage = "Population: {0}"; // Message for displaying the current population
@@ -28,11 +26,7 @@ namespace GameOfLife.Data.Constants
 
         public  const int DefaultResurrectionNeighborCount = 3; // value for dead cell to become alive
 
-        public const int DefaultMapLength = 10; // Default map length
-
-        public const int DefaultMapHeight = 10; // Default map height
-
-        public const int DefaultGenerations = 1000; // Default number of generations
+        public const int DefaultMapSize= 10; // Default map length
 
         public const int DefaultDelay = 1000; // Default delay between generations
 

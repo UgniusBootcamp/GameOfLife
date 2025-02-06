@@ -1,5 +1,6 @@
 ﻿using GameOfLife.Data.Constants;
 using GameOfLife.Data.Interfaces;
+using System.Data;
 
 namespace GameOfLife.Data.Entities
 {
@@ -14,11 +15,14 @@ namespace GameOfLife.Data.Entities
         { 
             var map = _game.Map;
 
-            Console.Clear();
+            Console.CursorVisible = false;
+
+            ClearGrid(0, 2, map.Length + 5, map.Height + 4);
+
+            Console.SetCursorPosition(0, 2);
             Console.WriteLine(GameConstants.GenerationMessage, _game.Generation);
             Console.WriteLine(GameConstants.PopulationMessage, map.Population);
             Console.WriteLine(GameConstants.MapCorner + new String(GameConstants.MapHorizontalBorder, map.Length) + GameConstants.MapCorner);
-
             for (int i = 0; i < map.Height; i++)
             {
                 Console.Write(GameConstants.MapVerticalBorder);
@@ -30,6 +34,21 @@ namespace GameOfLife.Data.Entities
             }
 
             Console.WriteLine(GameConstants.MapCorner + new String(GameConstants.MapHorizontalBorder, map.Length) + GameConstants.MapCorner);
+        }
+
+        private void ClearGrid(int x, int y, int length, int height)
+        {
+            for (int i = 0; i < height; i++)
+            {
+                ClearLine(x, y + i, length);
+            }
+        }
+
+        private void ClearLine(int x, int y, int length)
+        {
+            Console.SetCursorPosition(x, y);
+            Console.Write(new string(' ', length));
+            Console.SetCursorPosition(x, y);
         }
     }
 }
