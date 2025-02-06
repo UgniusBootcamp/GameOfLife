@@ -1,10 +1,10 @@
 ﻿using System.Threading;
 using GameOfLife.Data.Constants;
-using GameOfLife.Data.Entities.Game;
+using GameOfLife.Data.Entities.Games;
 using GameOfLife.Data.Interfaces.Game;
 using GameOfLife.Data.Interfaces.UI;
 
-namespace GameOfLife.Data.Services
+namespace GameOfLife.Data.Util
 {
     public class GameService(IGameReceiver gameReceiver, IGamePrinter gamePrinter) : GameController(gameReceiver, gamePrinter)
     {

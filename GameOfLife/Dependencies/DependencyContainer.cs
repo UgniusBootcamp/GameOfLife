@@ -1,7 +1,7 @@
-﻿using GameOfLife.Data.Entities.Game;
+﻿using GameOfLife.Data.Entities.Games;
 using GameOfLife.Data.Interfaces.Game;
 using GameOfLife.Data.Interfaces.UI;
-using GameOfLife.Data.Services;
+using GameOfLife.Data.Util;
 using GameOfLife.UI;
 
 

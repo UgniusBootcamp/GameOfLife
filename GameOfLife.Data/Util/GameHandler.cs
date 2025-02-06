@@ -1,7 +1,8 @@
-﻿using GameOfLife.Data.Interfaces;
+﻿using GameOfLife.Data.Entities;
+using GameOfLife.Data.Interfaces;
 using GameOfLife.Data.Interfaces.Game;
 
-namespace GameOfLife.Data.Entities.Game
+namespace GameOfLife.Data.Util
 {
     public class GameHandler(IRule rule) : IGameHandler
     {

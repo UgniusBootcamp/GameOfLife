@@ -1,4 +1,4 @@
-﻿using GameOfLife.Data.Entities.Game;
+﻿using GameOfLife.Data.Entities.Games;
 using System;
 using System.Collections.Generic;
 using System.Linq;

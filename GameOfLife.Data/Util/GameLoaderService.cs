@@ -1,7 +1,7 @@
-﻿using GameOfLife.Data.Entities.Game;
+﻿using GameOfLife.Data.Entities.Games;
 using GameOfLife.Data.Interfaces.Game;
 
-namespace GameOfLife.Data.Services
+namespace GameOfLife.Data.Util
 {
     public class GameLoaderService : IGameReceiver
     {

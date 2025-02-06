@@ -2,7 +2,7 @@
 using GameOfLife.Data.Interfaces;
 using GameOfLife.Data.Interfaces.Game;
 
-namespace GameOfLife.Data.Entities.Game
+namespace GameOfLife.Data.Entities.Games
 {
     public class Game : IGame
     {

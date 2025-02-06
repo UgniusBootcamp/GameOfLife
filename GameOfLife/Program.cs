@@ -1,7 +1,7 @@
 ﻿using GameOfLife.Data.Entities.Menus;
 using GameOfLife.Data.Interfaces;
 using GameOfLife.Data.Interfaces.UI;
-using GameOfLife.Data.Services;
+using GameOfLife.Data.Util;
 using GameOfLife.Dependencies;
 using GameOfLife.UI;
 

@@ -2,7 +2,7 @@
 using GameOfLife.Data.Interfaces.Game;
 using GameOfLife.Data.Interfaces.UI;
 
-namespace GameOfLife.Data.Entities.Game
+namespace GameOfLife.Data.Util
 {
     public class GamePrinter : IGamePrinter
     {
@@ -11,9 +11,9 @@ namespace GameOfLife.Data.Entities.Game
         {
             int xOffset = 0;
             int yOffset = 2;
-            
+
             ClearLine(xOffset, yOffset);
-            ClearLine(xOffset, yOffset+1);
+            ClearLine(xOffset, yOffset + 1);
 
             foreach (var game in games)
             {
@@ -25,14 +25,14 @@ namespace GameOfLife.Data.Entities.Game
         private void ClearLine(int xOffset, int yOffset)
         {
             Console.SetCursorPosition(xOffset, yOffset);
-            Console.Write(new String(' ', Console.WindowWidth));
+            Console.Write(new string(' ', Console.WindowWidth));
         }
 
         /// <summary>
         /// Print the game to the console
         /// </summary>
         private void PrintGame(IGame game, int xOffset, int yOffset)
-        { 
+        {
             var map = game.Map;
 
             Console.CursorVisible = false;
@@ -43,7 +43,7 @@ namespace GameOfLife.Data.Entities.Game
             Console.SetCursorPosition(xOffset, ++yOffset);
             Console.Write(GameConstants.PopulationMessage, map.Population);
             Console.SetCursorPosition(xOffset, ++yOffset);
-            Console.Write(GameConstants.MapCorner + new String(GameConstants.MapHorizontalBorder, map.Length) + GameConstants.MapCorner);
+            Console.Write(GameConstants.MapCorner + new string(GameConstants.MapHorizontalBorder, map.Length) + GameConstants.MapCorner);
             for (int i = 0; i < map.Height; i++)
             {
                 Console.SetCursorPosition(xOffset, ++yOffset);
@@ -55,7 +55,7 @@ namespace GameOfLife.Data.Entities.Game
                 Console.Write(GameConstants.MapVerticalBorder);
             }
             Console.SetCursorPosition(xOffset, ++yOffset);
-            Console.Write(GameConstants.MapCorner + new String(GameConstants.MapHorizontalBorder, map.Length) + GameConstants.MapCorner);
+            Console.Write(GameConstants.MapCorner + new string(GameConstants.MapHorizontalBorder, map.Length) + GameConstants.MapCorner);
         }
     }
 }
