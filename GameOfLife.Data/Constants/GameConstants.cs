@@ -33,5 +33,9 @@
         public const string InvalidMapSizeMessage = "Invalid map size"; // Message for invalid map size
 
         public const string InvalidCellPositionMessage = "Invalid cell position"; // Message for invalid cell position
+
+        public const string GameRunningMessage = "Press 'P' to pause, 'Q' to exit"; // Message for game running
+
+        public const string GamePausedMessage = "Press 'R' to resume, 'Q' to exit"; // Message for game paused
     }
 }

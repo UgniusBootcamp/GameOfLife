@@ -7,25 +7,22 @@ namespace GameOfLife.Data.Util
     public class GamePrinter : IGamePrinter
     {
 
-        public void PrintGames(IEnumerable<IGame> games)
+        public void PrintGames(string[] messages, IReadOnlyList<IGame> games)
         {
-            int xOffset = 0;
-            int yOffset = 2;
+            Console.Clear();
 
-            ClearLine(xOffset, yOffset);
-            ClearLine(xOffset, yOffset + 1);
+            int xOffset = 0;
 
             foreach (var game in games)
             {
-                PrintGame(game, xOffset, yOffset);
+                PrintGame(game, xOffset, 0);
                 xOffset += game.Map.Length + 10;
             }
-        }
 
-        private void ClearLine(int xOffset, int yOffset)
-        {
-            Console.SetCursorPosition(xOffset, yOffset);
-            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(0, games[0].Map.Height + 4);
+            Console.ForegroundColor = ConsoleColor.Green;
+            messages.ToList().ForEach(message => Console.WriteLine(message));
+            Console.ResetColor();
         }
 
         /// <summary>

@@ -9,6 +9,6 @@ namespace GameOfLife.Data.Interfaces.UI
 {
     public interface IGamePrinter
     {
-        void PrintGames(IEnumerable<IGame> games);
+        void PrintGames(string[] messages, IReadOnlyList<IGame> games);
     }
 }

@@ -11,7 +11,9 @@ namespace GameOfLife.Data.Util
         private List<IGame> games = new List<IGame>();
         private bool _isRunning = true;
         private bool _isPaused;
-        private Barrier _barrier;
+        private Barrier? _barrier;
+        private string[] messages = { GameConstants.GameRunningMessage };
+
 
         public override void Execute()
         {
@@ -21,11 +23,10 @@ namespace GameOfLife.Data.Util
             games.Add(game);
             games.Add(game1);
 
-            Console.WriteLine("Press 'P' to pause, 'R' to resume, 'Q' to exit");
 
             _barrier = new Barrier(games.Count, (b) =>
             {
-                _gamePrinter.PrintGames(games);
+                Print();
             });
 
             var threads = games.Select(g => new Thread(() => Run(g))).ToList();
@@ -44,20 +45,32 @@ namespace GameOfLife.Data.Util
 
                 game.Iterate();
 
-                _barrier.SignalAndWait();
+                _barrier!.SignalAndWait();
 
-                Thread.Sleep(1000);
+                Thread.Sleep(GameConstants.DefaultDelay);
+            }
+        }
+
+        private void Print()
+        {
+            lock(_gamePrinter)
+            {
+                _gamePrinter.PrintGames(messages, games);
             }
         }
 
         private void Pause()
         {
             _isPaused = true;
+            messages = [GameConstants.GamePausedMessage, "Game is Paused"];
+            Print();
         }
 
         public void Resume()
         {
             _isPaused = false;
+            messages = [GameConstants.GameRunningMessage];
+            Print();
         }
 
         public void Exit()
