@@ -11,12 +11,21 @@ namespace GameOfLife.Data.Entities.Game
         {
             int xOffset = 0;
             int yOffset = 2;
+            
+            ClearLine(xOffset, yOffset);
+            ClearLine(xOffset, yOffset+1);
 
             foreach (var game in games)
             {
                 PrintGame(game, xOffset, yOffset);
-                xOffset += game.Map.Length + 5;
+                xOffset += game.Map.Length + 10;
             }
+        }
+
+        private void ClearLine(int xOffset, int yOffset)
+        {
+            Console.SetCursorPosition(xOffset, yOffset);
+            Console.Write(new String(' ', Console.WindowWidth));
         }
 
         /// <summary>
@@ -30,27 +39,23 @@ namespace GameOfLife.Data.Entities.Game
 
             Console.SetCursorPosition(xOffset, yOffset);
 
-            Console.WriteLine(GameConstants.GenerationMessage, game.Generation);
-            Console.WriteLine(GameConstants.PopulationMessage, map.Population);
-            Console.WriteLine(GameConstants.MapCorner + new String(GameConstants.MapHorizontalBorder, map.Length) + GameConstants.MapCorner);
+            Console.Write(GameConstants.GenerationMessage, game.Generation);
+            Console.SetCursorPosition(xOffset, ++yOffset);
+            Console.Write(GameConstants.PopulationMessage, map.Population);
+            Console.SetCursorPosition(xOffset, ++yOffset);
+            Console.Write(GameConstants.MapCorner + new String(GameConstants.MapHorizontalBorder, map.Length) + GameConstants.MapCorner);
             for (int i = 0; i < map.Height; i++)
             {
+                Console.SetCursorPosition(xOffset, ++yOffset);
                 Console.Write(GameConstants.MapVerticalBorder);
                 for (int j = 0; j < map.Length; j++)
                 {
                     Console.Write(map.GetCell(i, j).IsAlive ? GameConstants.Alive : GameConstants.Dead);
                 }
-                Console.WriteLine(GameConstants.MapVerticalBorder);
+                Console.Write(GameConstants.MapVerticalBorder);
             }
-
-            Console.WriteLine(GameConstants.MapCorner + new String(GameConstants.MapHorizontalBorder, map.Length) + GameConstants.MapCorner);
-        }
-
-        private void ClearLine(int x, int y, int length)
-        {
-            Console.SetCursorPosition(x, y);
-            Console.Write(new string(' ', length));
-            Console.SetCursorPosition(x, y);
+            Console.SetCursorPosition(xOffset, ++yOffset);
+            Console.Write(GameConstants.MapCorner + new String(GameConstants.MapHorizontalBorder, map.Length) + GameConstants.MapCorner);
         }
     }
 }

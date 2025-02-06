@@ -1,4 +1,5 @@
-﻿using GameOfLife.Data.Constants;
+﻿using System.Threading;
+using GameOfLife.Data.Constants;
 using GameOfLife.Data.Entities.Game;
 using GameOfLife.Data.Interfaces.Game;
 using GameOfLife.Data.Interfaces.UI;
@@ -10,6 +11,7 @@ namespace GameOfLife.Data.Services
         private List<IGame> games = new List<IGame>();
         private bool _isRunning = true;
         private bool _isPaused;
+        private Barrier _barrier;
 
         public override void Execute()
         {
@@ -21,11 +23,17 @@ namespace GameOfLife.Data.Services
 
             Console.WriteLine("Press 'P' to pause, 'R' to resume, 'Q' to exit");
 
-            var gameTasks = games.Select(g => Task.Run(() => Run(g))).ToArray();
-            var keyPressTask = Task.Run(() => ListenForKeyPress());
+            _barrier = new Barrier(games.Count, (b) =>
+            {
+                _gamePrinter.PrintGames(games);
+            });
 
-            Task.WhenAll(gameTasks).ContinueWith(_ => _gamePrinter.PrintGames(games)).Wait();
+            var threads = games.Select(g => new Thread(() => Run(g))).ToList();
+            threads.ForEach(t => t.Start());
 
+            ListenForKeyPress();
+
+            threads.ForEach(t => t.Join());
         }
 
         private void Run(IGame game)
@@ -35,6 +43,8 @@ namespace GameOfLife.Data.Services
                 if (_isPaused) continue;
 
                 game.Iterate();
+
+                _barrier.SignalAndWait();
 
                 Thread.Sleep(1000);
             }
