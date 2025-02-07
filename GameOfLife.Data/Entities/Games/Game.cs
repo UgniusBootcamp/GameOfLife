@@ -10,10 +10,8 @@ namespace GameOfLife.Data.Entities.Games
         public Game(int generation, IMap map, IGameLogic gameHandler) : base(generation, map, gameHandler) { }
 
         /// <summary>
-        /// Run the game for a number of iterations
+        /// Method to perform one iteration of a game
         /// </summary>
-        /// <param name="iterations">number of iteration a game should run</param>
-        /// <param name="delay">delay for each iteration</param>
         public override void Iterate()
         {
             Map = _gameHandler.CalculateNextGeneration(Map);

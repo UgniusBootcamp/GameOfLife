@@ -14,6 +14,10 @@ namespace GameOfLife.Data.Util
         private Barrier? _barrier;
         private string[] messages = [GameConstants.GameRunningMessage];
 
+        /// <summary>
+        /// Execution of games
+        /// </summary>
+        /// <param name="action">action of how games are created</param>
         public override void Execute(GameAction action)
         {
             _outputHandler.Clear();
@@ -41,6 +45,10 @@ namespace GameOfLife.Data.Util
             threads.ForEach(t => t.Join());
         }
 
+        /// <summary>
+        /// Running proccess of a single game
+        /// </summary>
+        /// <param name="game">game</param>
         protected void Run(IGame game)
         {
             while (_isRunning)
@@ -55,6 +63,9 @@ namespace GameOfLife.Data.Util
             }
         }
 
+        /// <summary>
+        /// Helper method to load games
+        /// </summary>
         private void Load()
         {
             games = _gameLoader.LoadGames();
@@ -68,6 +79,9 @@ namespace GameOfLife.Data.Util
             }
         }
 
+        /// <summary>
+        /// Method to print games
+        /// </summary>
         protected override void Print()
         {
             lock(_gamePrinter)
@@ -76,6 +90,9 @@ namespace GameOfLife.Data.Util
             }
         }
 
+        /// <summary>
+        /// Method to pause games
+        /// </summary>
         protected override void Pause()
         {
             _isPaused = true;
@@ -83,6 +100,9 @@ namespace GameOfLife.Data.Util
             Print();
         }
 
+        /// <summary>
+        /// method to resume games
+        /// </summary>
         protected override void Resume()
         {
             _isPaused = false;
@@ -90,11 +110,17 @@ namespace GameOfLife.Data.Util
             Print();
         }
 
+        /// <summary>
+        /// method to exit games
+        /// </summary>
         protected override void Exit()
         {
             _isRunning = false;
         }
 
+        /// <summary>
+        /// method to save games
+        /// </summary>
         protected override void Save()
         {
             if (_isRunning && _isPaused)
@@ -104,6 +130,9 @@ namespace GameOfLife.Data.Util
             }
         }
 
+        /// <summary>
+        /// key listener for user action for methods to perfom
+        /// </summary>
         protected override void ListenForKeyPress()
         {
             while (_isRunning)

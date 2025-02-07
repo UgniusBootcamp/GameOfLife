@@ -10,8 +10,12 @@ namespace GameOfLife.Data.Util
     {
         private readonly IInputHandler _inputHandler = inputHandler;
         private readonly IGameLogic _gameLogic = gameLogic;
-        private const int defaultGamesCount = 2;
+        private const int defaultGamesCount = GameConstants.DefaultGameRunCount;
 
+        /// <summary>
+        /// Method to create games
+        /// </summary>
+        /// <returns>new games</returns>
         public IEnumerable<IGame> CreateGames()
         {
             int length = _inputHandler.GetInt(GameConstants.LenghtInputMessage);

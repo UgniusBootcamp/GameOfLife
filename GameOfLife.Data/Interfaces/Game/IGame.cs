@@ -9,7 +9,15 @@ namespace GameOfLife.Data.Interfaces.Game
         int Generation { get; }
         IMap Map { get; }
 
+        /// <summary>
+        /// Method to transfer data from Game to GameDto
+        /// </summary>
+        /// <returns>transformed object</returns>
         GameDto GetGameDto();
+
+        /// <summary>
+        /// Method to perform one iteration of a game
+        /// </summary>
         void Iterate();
     }
 }

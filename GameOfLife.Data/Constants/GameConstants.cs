@@ -81,5 +81,7 @@ namespace GameOfLife.Data.Constants
         public const char MapUnitIsDead = '0'; // Dead cell in map
 
         public const int DefaultFileSelectionNumber = 5; // Default number to select files
+
+        public const int DefaultGameRunCount = 2; // Number of games to run
     }
 }

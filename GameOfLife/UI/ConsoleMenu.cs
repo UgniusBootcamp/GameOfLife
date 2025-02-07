@@ -6,6 +6,9 @@ namespace GameOfLife.UI
 {
     public class ConsoleMenu(List<IMenuItem> items) : Menu(items)
     {
+        /// <summary>
+        /// Method to show Navigable console items
+        /// </summary>
         public override void Show()
         {
             int selectedIndex = 0;

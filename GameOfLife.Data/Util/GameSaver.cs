@@ -10,6 +10,10 @@ namespace GameOfLife.Data.Util
         private readonly IInputHandler _inputHandler = inputHandler;
         private readonly IFileService _fileService = fileService;
 
+        /// <summary>
+        /// Method to save games 
+        /// </summary>
+        /// <param name="games">games to save</param>
         public void SaveGames(IEnumerable<IGame> games) 
         {
             Console.Clear();

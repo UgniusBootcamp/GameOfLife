@@ -12,12 +12,23 @@ namespace GameOfLife.Data.Entities.Games
 
         protected readonly IGameLogic _gameHandler;
 
+        /// <summary>
+        /// Game Base consturctor
+        /// </summary>
+        /// <param name="map">map</param>
+        /// <param name="gameHandler">game logic</param>
         public GameBase(IMap map, IGameLogic gameHandler)
         {
             Map = map;
             _gameHandler = gameHandler;
         }
 
+        /// <summary>
+        /// Game base constructor for loading game (which already has been played)
+        /// </summary>
+        /// <param name="generation">generations</param>
+        /// <param name="map">map</param>
+        /// <param name="gameHandler">game logic</param>
         public GameBase(int generation, IMap map, IGameLogic gameHandler)
         {
             Generation = generation;
@@ -25,6 +36,10 @@ namespace GameOfLife.Data.Entities.Games
             _gameHandler = gameHandler;
         }
 
+        /// <summary>
+        /// Method to transfer data from Game to GameDto
+        /// </summary>
+        /// <returns>transformed object</returns>
         public virtual GameDto GetGameDto()
         {
             return new GameDto
@@ -34,6 +49,9 @@ namespace GameOfLife.Data.Entities.Games
             };
         }
 
+        /// <summary>
+        /// Method for one time game interation
+        /// </summary>
         public abstract void Iterate();
     }
 }

@@ -11,6 +11,11 @@ namespace GameOfLife.Data.Util
         private readonly string dir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, GameConstants.GameSaveDirectory) + "\\";
         private readonly IOutputHandler _outputHandler = outputHandler;
 
+        /// <summary>
+        /// Method to read games which are in json format
+        /// </summary>
+        /// <param name="fileName">name of file</param>
+        /// <returns>games</returns>
         public List<GameDto> ReadGame(string fileName)
         {
             try
@@ -35,6 +40,11 @@ namespace GameOfLife.Data.Util
             }
         }
 
+        /// <summary>
+        /// Method to save games in json format
+        /// </summary>
+        /// <param name="fileName">name of file to save</param>
+        /// <param name="games">games to save</param>
         public void SaveGame(string fileName, IEnumerable<GameDto> games)
         {
             try
@@ -52,6 +62,9 @@ namespace GameOfLife.Data.Util
             }
         }
 
+        /// <summary>
+        /// Helper to check if directory exists
+        /// </summary>
         private void DirectoryCheck()
         {
             if (!Directory.Exists(dir))

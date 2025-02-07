@@ -92,6 +92,10 @@ namespace GameOfLife.Data.Entities
             _map[cell.X, cell.Y] = cell;
         }
 
+        /// <summary>
+        /// Method to get MapDto object from Map
+        /// </summary>
+        /// <returns></returns>
         public MapDto GetMapDto()
         {
             return new MapDto
@@ -102,6 +106,10 @@ namespace GameOfLife.Data.Entities
             };
         }
 
+        /// <summary>
+        /// Method to get Map from MapDto
+        /// </summary>
+        /// <param name="dto">map dto</param>
         public Map(MapDto dto)
         {
             Length = dto.Length;
@@ -120,6 +128,10 @@ namespace GameOfLife.Data.Entities
             }
         }
 
+        /// <summary>
+        /// Method for cell 2D array to be represented as string array
+        /// </summary>
+        /// <returns>cell map in string array</returns>
         private List<string> CellsToString()
         {
             var list = new List<string>();

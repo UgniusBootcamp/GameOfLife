@@ -23,6 +23,11 @@ namespace GameOfLife.Data.Interfaces
         int Length { get; }
         int Height { get; }
         int Population { get; }
+
+        /// <summary>
+        /// Method to get MapDto from IMap
+        /// </summary>
+        /// <returns>IMap object</returns>
         MapDto GetMapDto();
     }
 }

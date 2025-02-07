@@ -8,6 +8,11 @@ namespace GameOfLife.UI
     public class GamePrinter : IGamePrinter
     {
 
+        /// <summary>
+        /// Method for printing Games and messages to user
+        /// </summary>
+        /// <param name="messages">message below games</param>
+        /// <param name="games">games to print</param>
         public void PrintGames(string[] messages, IEnumerable<IGame> games)
         {
             if(games.Count() == 0) return;

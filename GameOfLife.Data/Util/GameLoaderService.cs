@@ -6,19 +6,16 @@ using GameOfLife.Data.Interfaces.UI;
 
 namespace GameOfLife.Data.Util
 {
-    public class GameLoaderService : IGameLoader
+    public class GameLoaderService(IGameLogic gameLogic, IFileService fileService, IOptionSelector otionSelector) : IGameLoader
     {
-        private readonly IFileService _fileService;
-        private readonly IGameLogic _gameLogic;
-        private readonly IOptionSelector _optionSelector;
+        private readonly IFileService _fileService = fileService;
+        private readonly IGameLogic _gameLogic = gameLogic;
+        private readonly IOptionSelector _optionSelector = otionSelector;
 
-        public GameLoaderService(IGameLogic gameLogic, IFileService fileService, IOptionSelector otionSelector)
-        {
-            _gameLogic = gameLogic;
-            _fileService = fileService;
-            _optionSelector = otionSelector;
-        }
-
+        /// <summary>
+        /// Method to load games
+        /// </summary>
+        /// <returns>loaded games</returns>
         public IEnumerable<IGame> LoadGames()
         {
             var fileName = GetFile();
@@ -32,6 +29,10 @@ namespace GameOfLife.Data.Util
             return games;
         }
 
+        /// <summary>
+        /// Helper for getting file from user input
+        /// </summary>
+        /// <returns>selected user file</returns>
         private string? GetFile()
         {
             var files = FileSystem.Instance.GetDirFiles();
