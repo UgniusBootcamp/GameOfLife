@@ -23,6 +23,8 @@ namespace GameOfLife.Data.Util
         {
             var fileName = GetFile();
 
+            if (fileName == null) return [];
+
             var gameDtos = _fileService.ReadGame(fileName);
 
             var games = gameDtos.Select(g => new Game(new Map(g.Map), _gameLogic));
@@ -30,10 +32,12 @@ namespace GameOfLife.Data.Util
             return games;
         }
 
-        private string GetFile()
+        private string? GetFile()
         {
             var files = FileSystem.Instance.GetDirFiles();
             var selected = _optionSelector.Select(files);
+
+            if(selected < 0) return null;
 
             return files[selected];
         }

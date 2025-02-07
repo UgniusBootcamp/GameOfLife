@@ -12,10 +12,10 @@ namespace GameOfLife.UI
         {
             _outputHandler.Clear();
 
+            if (values.Length == 0) return -1;
+
             var index = 0;
             values = values.Select(v => $"{++index}. {v}").ToArray();
-
-            if (values.Length == 0) return index;
 
             _outputHandler.Output(values);
             var input = _inputHandler.GetInt($"Select Option: 1 - {index}");

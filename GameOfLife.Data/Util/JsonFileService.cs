@@ -10,14 +10,14 @@ namespace GameOfLife.Data.Util
 {
     public class JsonFileService(IOutputHandler outputHandler) : IFileService
     {
-        private const string dir = GameConstants.GameSaveDirectory;
+        private readonly string dir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, GameConstants.GameSaveDirectory) + "\\";
         private readonly IOutputHandler _outputHandler = outputHandler;
 
         public List<GameDto> ReadGame(string fileName)
         {
             try
             {
-                fileName = dir + "/" + fileName + ".json";
+                fileName = dir + fileName + ".json";
 
                 if (!File.Exists(fileName))
                 {
@@ -43,7 +43,7 @@ namespace GameOfLife.Data.Util
             {
                 DirectoryCheck();
 
-                fileName = dir + "/" + fileName + ".json";
+                fileName = dir + fileName + ".json";
 
                 var json = JsonSerializer.Serialize(games, new JsonSerializerOptions { WriteIndented = true });
                 File.WriteAllText(fileName, json);

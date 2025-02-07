@@ -60,8 +60,10 @@ namespace GameOfLife.Data.Util
             games = _gameLoader.LoadGames();
             if (games.Count() == 0)
             {
+                _outputHandler.Clear();
                 _outputHandler.Output("No Games found");
                 _outputHandler.Output("Press 'N' to Start New Game");
+
                 ListenForKeyPress();
             }
         }
