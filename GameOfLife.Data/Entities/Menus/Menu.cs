@@ -1,6 +1,4 @@
 ﻿using GameOfLife.Data.Interfaces;
-
-
 namespace GameOfLife.Data.Entities.Menus
 {
     public abstract class Menu

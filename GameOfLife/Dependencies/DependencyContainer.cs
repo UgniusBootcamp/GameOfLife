@@ -1,6 +1,4 @@
-﻿using GameOfLife.Data.Entities.Games;
-using GameOfLife.Data.Entities.Menus;
-using GameOfLife.Data.Entities.Rules;
+﻿using GameOfLife.Data.Entities.Rules;
 using GameOfLife.Data.Interfaces;
 using GameOfLife.Data.Interfaces.Game;
 using GameOfLife.Data.Interfaces.UI;

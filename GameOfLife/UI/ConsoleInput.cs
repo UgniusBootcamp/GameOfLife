@@ -1,5 +1,4 @@
-﻿using GameOfLife.Data.Constants;
-using GameOfLife.Data.Interfaces.UI;
+﻿using GameOfLife.Data.Interfaces.UI;
 
 namespace GameOfLife.UI
 {

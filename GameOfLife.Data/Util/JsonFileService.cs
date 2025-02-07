@@ -1,9 +1,7 @@
-﻿using System.Runtime.CompilerServices;
-using System.Text.Json;
+﻿using System.Text.Json;
 using GameOfLife.Data.Constants;
 using GameOfLife.Data.Dto;
 using GameOfLife.Data.Interfaces;
-using GameOfLife.Data.Interfaces.Game;
 using GameOfLife.Data.Interfaces.UI;
 
 namespace GameOfLife.Data.Util

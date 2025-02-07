@@ -1,5 +1,4 @@
 ﻿using GameOfLife.Data.Constants;
-using GameOfLife.Data.Dto;
 using GameOfLife.Data.Interfaces;
 using GameOfLife.Data.Interfaces.Game;
 
