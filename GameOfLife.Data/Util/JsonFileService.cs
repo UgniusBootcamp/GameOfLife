@@ -19,7 +19,7 @@ namespace GameOfLife.Data.Util
 
                 if (!File.Exists(fileName))
                 {
-                    _outputHandler.Output($"The file {fileName} does not exist.");
+                    _outputHandler.Output($"{GameConstants.FileNotFoundMessage} {fileName}");
                     return [];
                 }
 
@@ -30,7 +30,7 @@ namespace GameOfLife.Data.Util
             }
             catch (Exception e)
             {
-                _outputHandler.Output($"Failed to read Game from file: {e.Message}");
+                _outputHandler.Output($"{GameConstants.FailedToReadGameMessage} {e.Message}");
                 return [];
             }
         }
@@ -41,14 +41,14 @@ namespace GameOfLife.Data.Util
             {
                 DirectoryCheck();
 
-                fileName = dir + fileName + ".json";
+                fileName = dir + fileName + GameConstants.JsonExtension;
 
                 var json = JsonSerializer.Serialize(games, new JsonSerializerOptions { WriteIndented = true });
                 File.WriteAllText(fileName, json);
             }
             catch (Exception e)
             {
-                _outputHandler.Output($"Failed to save Game to file {e.Message}");
+                _outputHandler.Output($"{GameConstants.FailedToSaveGameMessage} {e.Message}");
             }
         }
 

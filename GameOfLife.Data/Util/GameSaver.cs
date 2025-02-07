@@ -13,7 +13,9 @@ namespace GameOfLife.Data.Util
         public void SaveGames(IEnumerable<IGame> games) 
         {
             Console.Clear();
-            var fileName = _inputHandler.GetString("Enter file name: ") ?? GameConstants.DefaultGameFileName;
+            var fileName = _inputHandler.GetString(GameConstants.FileNameEnterMessage);
+
+            if (String.IsNullOrEmpty(fileName)) fileName = GameConstants.DefaultGameSaveName;
 
             var gamesDto = games.Select(g => g.GetGameDto());
 

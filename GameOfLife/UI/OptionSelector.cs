@@ -1,4 +1,5 @@
 ﻿using System;
+using GameOfLife.Data.Constants;
 using GameOfLife.Data.Interfaces.UI;
 
 namespace GameOfLife.UI
@@ -18,7 +19,7 @@ namespace GameOfLife.UI
             values = values.Select(v => $"{++index}. {v}").ToArray();
 
             _outputHandler.Output(values);
-            var input = _inputHandler.GetInt($"Select Option: 1 - {index}");
+            var input = _inputHandler.GetInt($"{GameConstants.OptionMessage} {index}");
 
             if (input < 1 || input > index) return 0;
 

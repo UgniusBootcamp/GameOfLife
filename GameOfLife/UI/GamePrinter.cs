@@ -1,4 +1,5 @@
-﻿using GameOfLife.Data.Constants;
+﻿using System.ComponentModel.DataAnnotations;
+using GameOfLife.Data.Constants;
 using GameOfLife.Data.Interfaces.Game;
 using GameOfLife.Data.Interfaces.UI;
 
@@ -7,8 +8,10 @@ namespace GameOfLife.UI
     public class GamePrinter : IGamePrinter
     {
 
-        public void PrintGames(string[] messages, IReadOnlyList<IGame> games)
+        public void PrintGames(string[] messages, IEnumerable<IGame> games)
         {
+            if(games.Count() == 0) return;
+
             Console.Clear();
 
             int xOffset = 0;
@@ -16,10 +19,12 @@ namespace GameOfLife.UI
             foreach (var game in games)
             {
                 PrintGame(game, xOffset, 0);
-                xOffset += game.Map.Length + 10;
+                xOffset += game.Map.Length + GameConstants.NextMapLengthOffset;
             }
 
-            Console.SetCursorPosition(0, games[0].Map.Height + 4);
+            var maxHeight = games.MaxBy(g => g.Map.Height)!.Map.Height;
+
+            Console.SetCursorPosition(0, maxHeight + GameConstants.MessageOffset);
             Console.ForegroundColor = ConsoleColor.Green;
             messages.ToList().ForEach(message => Console.WriteLine(message));
             Console.ResetColor();

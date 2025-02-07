@@ -7,7 +7,7 @@ namespace GameOfLife.Data.Util
         private static readonly FileSystem instance = new FileSystem();
         private FileSystem(){ }
         public static FileSystem Instance => instance;
-        public string[] GetDirFiles(string dirPath = GameConstants.GameSaveDirectory , string fileExtension = "json",  int numb = 5)
+        public string[] GetDirFiles(string dirPath = GameConstants.GameSaveDirectory , string fileExtension = GameConstants.DefaultFileExtension,  int numb = GameConstants.DefaultFileSelectionNumber)
         {
             var files = Directory.GetFiles(dirPath, $"*.{fileExtension}");
 

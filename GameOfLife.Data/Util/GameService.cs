@@ -61,8 +61,8 @@ namespace GameOfLife.Data.Util
             if (games.Count() == 0)
             {
                 _outputHandler.Clear();
-                _outputHandler.Output("No Games found");
-                _outputHandler.Output("Press 'N' to Start New Game");
+                _outputHandler.Output(GameConstants.NoGameFoundMessage);
+                _outputHandler.Output(GameConstants.StartNewGameMessage);
 
                 ListenForKeyPress();
             }
@@ -79,7 +79,7 @@ namespace GameOfLife.Data.Util
         protected override void Pause()
         {
             _isPaused = true;
-            messages = [GameConstants.GamePausedMessage, "Game is Paused"];
+            messages = [GameConstants.GamePausedMessage, GameConstants.GameIsPause];
             Print();
         }
 

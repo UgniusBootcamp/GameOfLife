@@ -1,4 +1,5 @@
-﻿using GameOfLife.Data.Entities.Menus;
+﻿using GameOfLife.Data.Constants;
+using GameOfLife.Data.Entities.Menus;
 using GameOfLife.Data.Enums;
 using GameOfLife.Data.Interfaces;
 using GameOfLife.Dependencies;
@@ -11,9 +12,9 @@ public class Program
 
         List<IMenuItem> items = new List<IMenuItem>()
         {
-            new MenuItem( "Start Game", () => DependencyContainer.GameService.Execute(GameAction.Start)),
-            new MenuItem( "Load Game", () => DependencyContainer.GameService.Execute(GameAction.Load)),
-            new MenuItem( "Exit", () => Environment.Exit(0))
+            new MenuItem( GameConstants.StartGame, () => DependencyContainer.GameService.Execute(GameAction.Start)),
+            new MenuItem( GameConstants.LoadGame, () => DependencyContainer.GameService.Execute(GameAction.Load)),
+            new MenuItem( GameConstants.Exit, () => Environment.Exit(0))
         };
 
         var mainMenu = new ConsoleMenu(items);

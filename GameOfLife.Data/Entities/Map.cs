@@ -113,7 +113,7 @@ namespace GameOfLife.Data.Entities
                 for (int j = 0; j < dto.Length; j++)
                 {
                     var cell = dto.Cells[i][j];
-                    var isAlive = cell == '1';
+                    var isAlive = cell == GameConstants.MapUnitIsAlive;
 
                     _map[i,j] = new Cell(i, j, isAlive);
                 }
@@ -129,7 +129,7 @@ namespace GameOfLife.Data.Entities
                 var sb = new StringBuilder();
                 for (int j = 0; j < Length; j++)
                 {
-                    sb.Append(_map[i, j].IsAlive ? "1" : "0");
+                    sb.Append(_map[i, j].IsAlive ? GameConstants.MapUnitIsAlive : GameConstants.MapUnitIsDead);
                 }
                 list.Add(sb.ToString());
             }

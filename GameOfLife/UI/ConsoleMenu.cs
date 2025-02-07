@@ -1,4 +1,5 @@
-﻿using GameOfLife.Data.Entities.Menus;
+﻿using GameOfLife.Data.Constants;
+using GameOfLife.Data.Entities.Menus;
 using GameOfLife.Data.Interfaces;
 
 namespace GameOfLife.UI
@@ -12,7 +13,7 @@ namespace GameOfLife.UI
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("Use Arrow keys to navigate. Press Enter to select. Press Escape to exit.\n");
+                Console.WriteLine(GameConstants.MainMenuMessage);
 
                 for (int i = 0; i < Items.Count; i++)
                 {
