@@ -22,6 +22,13 @@ namespace GameOfLife.Data.Entities.Games
             _gameHandler = gameHandler;
         }
 
+        public GameBase(int generation, IMap map, IGameLogic gameHandler)
+        {
+            Generation = generation;
+            Map = map;
+            _gameHandler = gameHandler;
+        }
+
         public virtual GameDto GetGameDto()
         {
             return new GameDto

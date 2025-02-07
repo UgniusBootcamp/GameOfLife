@@ -17,7 +17,7 @@ namespace GameOfLife.Data.Util
         {
             try
             {
-                fileName = dir + fileName + ".json";
+                fileName = dir + fileName;
 
                 if (!File.Exists(fileName))
                 {

@@ -112,7 +112,10 @@ namespace GameOfLife.Data.Entities
             {
                 for (int j = 0; j < dto.Length; j++)
                 {
-                    _map[i,j] = new Cell(i, j, dto.Cells[i][j] == 1);
+                    var cell = dto.Cells[i][j];
+                    var isAlive = cell == '1';
+
+                    _map[i,j] = new Cell(i, j, isAlive);
                 }
             }
         }
