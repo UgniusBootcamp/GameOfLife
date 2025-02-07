@@ -2,7 +2,7 @@
 using GameOfLife.Data.Interfaces.Game;
 using GameOfLife.Data.Interfaces.UI;
 
-namespace GameOfLife.Data.Util
+namespace GameOfLife.UI
 {
     public class GamePrinter : IGamePrinter
     {

@@ -4,7 +4,7 @@ using GameOfLife.Data.Interfaces.Game;
 
 namespace GameOfLife.Data.Util
 {
-    public class GameHandler(IRule rule) : IGameHandler
+    public class GameLogic(IRule rule) : IGameLogic
     {
         private readonly IRule _rule = rule;
 

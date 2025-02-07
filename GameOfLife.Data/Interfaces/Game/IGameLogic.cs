@@ -1,6 +1,6 @@
 ﻿namespace GameOfLife.Data.Interfaces.Game
 {
-    public interface IGameHandler
+    public interface IGameLogic
     {
         /// <summary>
         /// Constructor for GameHandler

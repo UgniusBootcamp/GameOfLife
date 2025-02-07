@@ -3,7 +3,7 @@ using GameOfLife.Data.Interfaces.UI;
 
 namespace GameOfLife.UI
 {
-    public class UserInputHandler : IInputHandler
+    public class ConsoleInput : IInputHandler
     {
         public int GetInt(string message)
         {

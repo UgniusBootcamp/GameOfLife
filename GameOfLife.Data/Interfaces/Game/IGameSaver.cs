@@ -2,6 +2,6 @@
 {
     public interface IGameSaver
     {
-        void SaveGames(List<IGame> games);
+        void SaveGames(IEnumerable<IGame> games);
     }
 }

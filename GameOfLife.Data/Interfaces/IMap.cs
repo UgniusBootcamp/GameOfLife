@@ -24,6 +24,5 @@ namespace GameOfLife.Data.Interfaces
         int Height { get; }
         int Population { get; }
         MapDto GetMapDto();
-        IMap GetMap(MapDto dto);
     }
 }

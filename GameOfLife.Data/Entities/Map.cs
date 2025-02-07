@@ -102,18 +102,19 @@ namespace GameOfLife.Data.Entities
             };
         }
 
-        public IMap GetMap(MapDto dto)
+        public Map(MapDto dto)
         {
-            var map = new Map(dto.Height, dto.Length);
+            Length = dto.Length;
+            Height = dto.Height;
+            _map = new Cell[Height, Length];
 
             for (int i = 0; i < dto.Height; i++)
             {
                 for (int j = 0; j < dto.Length; j++)
                 {
-                    map.SetCell(new Cell(i, j, dto.Cells[i][j] == 1));
+                    _map[i,j] = new Cell(i, j, dto.Cells[i][j] == 1);
                 }
             }
-            return map;
         }
 
         private List<string> CellsToString()

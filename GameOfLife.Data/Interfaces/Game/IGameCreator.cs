@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace GameOfLife.Data.Interfaces.Game
 {
-    public interface IGameReceiver
+    public interface IGameCreator
     {
-        IGame GetGame();
+        IEnumerable<IGame> CreateGames();
     }
 }

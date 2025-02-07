@@ -39,5 +39,7 @@
         public const string GameRunningMessage = "Press 'P' to pause, 'Q' to exit"; // Message for game running
 
         public const string GamePausedMessage = "Press 'R' to resume, Press 'S' to save, 'Q' to exit"; // Message for game paused
+
+        public const string GameSaveDirectory = @"./GameSaves";
     }
 }

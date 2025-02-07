@@ -11,11 +11,14 @@ namespace GameOfLife.Data.Util
         private readonly IInputHandler _inputHandler = inputHandler;
         private readonly IFileService _fileService = fileService;
 
-        public void SaveGames(List<IGame> games) 
+        public void SaveGames(IEnumerable<IGame> games) 
         {
             Console.Clear();
             var fileName = _inputHandler.GetString("Enter file name: ") ?? GameConstants.DefaultGameFileName;
-            _fileService.SaveGame(fileName, games);
+
+            var gamesDto = games.Select(g => g.GetGameDto());
+
+            _fileService.SaveGame(fileName, gamesDto);
             Console.Clear();
         }
     }

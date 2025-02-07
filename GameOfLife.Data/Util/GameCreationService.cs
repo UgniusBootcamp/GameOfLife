@@ -8,11 +8,13 @@ using GameOfLife.Data.Interfaces.UI;
 
 namespace GameOfLife.Data.Util
 {
-    public class GameCreationService(IInputHandler inputHandler) : IGameReceiver
+    public class GameCreationService(IInputHandler inputHandler, IGameLogic gameLogic) : IGameCreator
     {
         private readonly IInputHandler _inputHandler = inputHandler;
+        private readonly IGameLogic _gameLogic = gameLogic;
+        private const int defaultGamesCount = 2;
 
-        public IGame GetGame()
+        public IEnumerable<IGame> CreateGames()
         {
             int length = _inputHandler.GetInt(GameConstants.LenghtInputMessage);
             if (length <= 0) length = GameConstants.DefaultMapSize;
@@ -22,9 +24,14 @@ namespace GameOfLife.Data.Util
 
             Console.Clear();
 
-            IMap map = new Map(height, length);
-            IGameHandler gameHandler = new GameHandler(new DefaultRule());
-            return new Game(map, gameHandler);
+            List<IGame> games = new List<IGame>();
+
+            for(int i = 0; i < defaultGamesCount; i++)
+            {
+                games.Add(new Game(new Map(height, length), _gameLogic));
+            }
+
+            return games;
 
         }
     }

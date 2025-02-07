@@ -1,50 +1,64 @@
 ﻿using System.Runtime.CompilerServices;
 using System.Text.Json;
+using GameOfLife.Data.Constants;
+using GameOfLife.Data.Dto;
 using GameOfLife.Data.Interfaces;
 using GameOfLife.Data.Interfaces.Game;
+using GameOfLife.Data.Interfaces.UI;
 
 namespace GameOfLife.Data.Util
 {
-    public class JsonFileService : IFileService
+    public class JsonFileService(IOutputHandler outputHandler) : IFileService
     {
-        public List<IGame> ReadGame(string fileName)
+        private const string dir = GameConstants.GameSaveDirectory;
+        private readonly IOutputHandler _outputHandler = outputHandler;
+
+        public List<GameDto> ReadGame(string fileName)
         {
             try
             {
-                fileName = fileName + ".json";
+                fileName = dir + "/" + fileName + ".json";
 
                 if (!File.Exists(fileName))
                 {
-                    Console.WriteLine("File not found");
+                    _outputHandler.Output($"The file {fileName} does not exist.");
                     return [];
                 }
 
                 string json = File.ReadAllText(fileName);
-                var result = JsonSerializer.Deserialize<List<IGame>>(json);
+                var result = JsonSerializer.Deserialize<List<GameDto>>(json);
 
                 return result ?? [];
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Failed to read Game from file {e.Message}");
+                _outputHandler.Output($"Failed to read Game from file: {e.Message}");
                 return [];
             }
         }
 
-        public void SaveGame(string fileName, List<IGame> games)
+        public void SaveGame(string fileName, IEnumerable<GameDto> games)
         {
             try
             {
-                fileName = fileName + ".json";
+                DirectoryCheck();
 
-                var gameDtos = games.Select(g => g.GetGameDto()).ToList();
+                fileName = dir + "/" + fileName + ".json";
 
-                var json = JsonSerializer.Serialize(gameDtos, new JsonSerializerOptions { WriteIndented = true });
+                var json = JsonSerializer.Serialize(games, new JsonSerializerOptions { WriteIndented = true });
                 File.WriteAllText(fileName, json);
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Failed to save Game to file {e.Message}");
+                _outputHandler.Output($"Failed to save Game to file {e.Message}");
+            }
+        }
+
+        private void DirectoryCheck()
+        {
+            if (!Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir);
             }
         }
     }

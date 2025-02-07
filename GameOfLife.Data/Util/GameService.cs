@@ -1,29 +1,34 @@
-﻿using System.Threading;
-using GameOfLife.Data.Constants;
-using GameOfLife.Data.Entities.Games;
-using GameOfLife.Data.Interfaces;
+﻿using GameOfLife.Data.Constants;
+using GameOfLife.Data.Enums;
 using GameOfLife.Data.Interfaces.Game;
 using GameOfLife.Data.Interfaces.UI;
 
 namespace GameOfLife.Data.Util
 {
-    public class GameService(IGameReceiver gameReceiver, IGamePrinter gamePrinter, IGameSaver gameSaver) : GameController(gameReceiver, gamePrinter, gameSaver)
+    public class GameService(IGameCreator gameCreator, IGameLoader gameLoader, IGamePrinter gamePrinter, IGameSaver gameSaver, IOutputHandler outputHandler) 
+        : GameController(gameCreator, gameLoader, gamePrinter, gameSaver, outputHandler)
     {
-        private readonly List<IGame> games = [];
+        private IEnumerable<IGame> games = [];
         private bool _isRunning = true;
         private bool _isPaused;
         private Barrier? _barrier;
         private string[] messages = [GameConstants.GameRunningMessage];
 
-        public override void Execute()
+        public override void Execute(GameAction action)
         {
-            var game = _gameReceiver.GetGame();
-            var game1 = _gameReceiver.GetGame();
+            _outputHandler.Clear();
 
-            games.Add(game);
-            games.Add(game1);
+            switch (action)
+            {
+                case GameAction.Start:
+                    games = _gameCreator.CreateGames();
+                    break;
+                case GameAction.Load:
+                    Load();
+                    break;
+            }
 
-            _barrier = new Barrier(games.Count, (b) =>
+            _barrier = new Barrier(games.Count(), (b) =>
             {
                 Print();
             });
@@ -50,11 +55,22 @@ namespace GameOfLife.Data.Util
             }
         }
 
+        private void Load()
+        {
+            games = _gameLoader.LoadGames();
+            if (games.Count() == 0)
+            {
+                _outputHandler.Output("No Games found");
+                _outputHandler.Output("Press 'N' to Start New Game");
+                ListenForKeyPress();
+            }
+        }
+
         protected override void Print()
         {
             lock(_gamePrinter)
             {
-                _gamePrinter.PrintGames(messages, games);
+                _gamePrinter.PrintGames(messages, games.ToList());
             }
         }
 
@@ -106,6 +122,9 @@ namespace GameOfLife.Data.Util
                             return;
                         case ConsoleKey.S:
                             Save();
+                            break;
+                        case ConsoleKey.N:
+                            Execute(GameAction.Start);
                             break;
                     }
                 }
