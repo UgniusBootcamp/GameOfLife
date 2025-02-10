@@ -11,6 +11,8 @@ namespace GameOfLife.Data.Util
         private IEnumerable<IGame> games = [];
         private bool _isRunning = true;
         private bool _isPaused;
+        private int firstGame = 0;
+        private int gamesToShow = 8;
         private Barrier? _barrier;
         private string[] messages = [GameConstants.GameRunningMessage];
 
@@ -26,6 +28,7 @@ namespace GameOfLife.Data.Util
             {
                 case GameAction.Start:
                     games = _gameCreator.CreateGames();
+                    gamesToShow = games.Count() < gamesToShow ? games.Count() : gamesToShow;
                     break;
                 case GameAction.Load:
                     Load();
@@ -77,6 +80,7 @@ namespace GameOfLife.Data.Util
 
                 ListenForKeyPress();
             }
+            gamesToShow = games.Count() < gamesToShow ? games.Count() : gamesToShow;
         }
 
         /// <summary>
@@ -86,7 +90,7 @@ namespace GameOfLife.Data.Util
         {
             lock(_gamePrinter)
             {
-                _gamePrinter.PrintGames(messages, games.ToList());
+                _gamePrinter.PrintGames(messages, games.Skip(firstGame).Take(gamesToShow));
             }
         }
 
@@ -130,6 +134,22 @@ namespace GameOfLife.Data.Util
             }
         }
 
+        protected void MoveRight()
+        {
+            if (firstGame + gamesToShow == games.Count()) return;
+
+            firstGame++;
+            Print();
+        }
+
+        protected void MoveLeft()
+        {
+            if(firstGame == 0) return;
+
+            firstGame--;
+            Print();
+        }
+
         /// <summary>
         /// key listener for user action for methods to perfom
         /// </summary>
@@ -156,6 +176,12 @@ namespace GameOfLife.Data.Util
                             break;
                         case ConsoleKey.N:
                             Execute(GameAction.Start);
+                            break;
+                        case ConsoleKey.LeftArrow:
+                            MoveLeft();
+                            break;
+                        case ConsoleKey.RightArrow:
+                            MoveRight();
                             break;
                     }
                 }

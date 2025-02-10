@@ -15,21 +15,37 @@ namespace GameOfLife.UI
         /// <param name="games">games to print</param>
         public void PrintGames(string[] messages, IEnumerable<IGame> games)
         {
-            if(games.Count() == 0) return;
+            if (games.Count() == 0) return;
 
             Console.Clear();
 
             int xOffset = 0;
+            int yOffset = 0;
+
+            int maxHeight = games.Max(g => g.Map.Height);
+            int maxLength = games.Max(g => g.Map.Length);
 
             foreach (var game in games)
             {
-                PrintGame(game, xOffset, 0);
+                PrintGame(game, xOffset, yOffset);
                 xOffset += game.Map.Length + GameConstants.NextMapLengthOffset;
+
+                if (xOffset + maxLength > Console.WindowWidth)
+                {
+                    xOffset = 0;
+                    if (yOffset + 2 * (maxHeight + GameConstants.NextMapHeightOffset) > Console.WindowHeight)
+                    {
+                        Console.Clear();
+                        yOffset = 0;
+                    }
+                    else
+                    {
+                        yOffset += maxHeight + GameConstants.NextMapHeightOffset;
+                    }
+                }
             }
 
-            var maxHeight = games.MaxBy(g => g.Map.Height)!.Map.Height;
-
-            Console.SetCursorPosition(0, maxHeight + GameConstants.MessageOffset);
+            Console.SetCursorPosition(0, yOffset + maxHeight + GameConstants.MessageOffset);
             Console.ForegroundColor = ConsoleColor.Green;
             messages.ToList().ForEach(message => Console.WriteLine(message));
             Console.ResetColor();
@@ -45,10 +61,7 @@ namespace GameOfLife.UI
             Console.CursorVisible = false;
 
             Console.SetCursorPosition(xOffset, yOffset);
-
-            Console.Write(GameConstants.GenerationMessage, game.Generation);
-            Console.SetCursorPosition(xOffset, ++yOffset);
-            Console.Write(GameConstants.PopulationMessage, map.Population);
+            Console.Write($"{GameConstants.Game}{game.Id}");
             Console.SetCursorPosition(xOffset, ++yOffset);
             Console.Write(GameConstants.MapCorner + new string(GameConstants.MapHorizontalBorder, map.Length) + GameConstants.MapCorner);
             for (int i = 0; i < map.Height; i++)

@@ -7,6 +7,7 @@ namespace GameOfLife.Data.Entities.Games
 {
     public abstract class GameBase : IGame
     {
+        public int Id { get; protected set; }
         public int Generation { get; protected set; } = 0;
         public IMap Map { get; protected set; }
 
@@ -17,8 +18,9 @@ namespace GameOfLife.Data.Entities.Games
         /// </summary>
         /// <param name="map">map</param>
         /// <param name="gameHandler">game logic</param>
-        public GameBase(IMap map, IGameLogic gameHandler)
+        public GameBase(int id, IMap map, IGameLogic gameHandler)
         {
+            Id = id;
             Map = map;
             _gameHandler = gameHandler;
         }
@@ -29,8 +31,9 @@ namespace GameOfLife.Data.Entities.Games
         /// <param name="generation">generations</param>
         /// <param name="map">map</param>
         /// <param name="gameHandler">game logic</param>
-        public GameBase(int generation, IMap map, IGameLogic gameHandler)
+        public GameBase(int id, int generation, IMap map, IGameLogic gameHandler)
         {
+            Id = id;
             Generation = generation;
             Map = map;
             _gameHandler = gameHandler;
@@ -44,6 +47,7 @@ namespace GameOfLife.Data.Entities.Games
         {
             return new GameDto
             {
+                Id = Id,
                 Generation = Generation,
                 Map = Map.GetMapDto()
             };

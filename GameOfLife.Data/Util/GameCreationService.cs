@@ -10,7 +10,6 @@ namespace GameOfLife.Data.Util
     {
         private readonly IInputHandler _inputHandler = inputHandler;
         private readonly IGameLogic _gameLogic = gameLogic;
-        private const int defaultGamesCount = GameConstants.DefaultGameRunCount;
 
         /// <summary>
         /// Method to create games
@@ -18,19 +17,22 @@ namespace GameOfLife.Data.Util
         /// <returns>new games</returns>
         public IEnumerable<IGame> CreateGames()
         {
-            int length = _inputHandler.GetInt(GameConstants.LenghtInputMessage);
-            if (length <= 0) length = GameConstants.DefaultMapSize;
+            int gameRunCount = _inputHandler.GetInt($"Type how many games to run 1 - {GameConstants.DefaultGameRunCount}");
+            if (gameRunCount <= 0 || gameRunCount > GameConstants.DefaultGameRunCount) gameRunCount = GameConstants.DefaultGameRunCount;
 
-            int height = _inputHandler.GetInt(GameConstants.HeightInputMessage);
-            if (height <= 0) height = GameConstants.DefaultMapSize;
+            int length = _inputHandler.GetInt(String.Format("{0}{1}", GameConstants.LenghtInputMessage, GameConstants.DefaultMapSize));
+            if (length <= 0 || length > GameConstants.DefaultMapSize) length = GameConstants.DefaultMapSize;
+
+            int height = _inputHandler.GetInt(String.Format("{0}{1}", GameConstants.HeightInputMessage, GameConstants.DefaultMapSize));
+            if (height <= 0 || height > GameConstants.DefaultMapSize) height = GameConstants.DefaultMapSize;
 
             Console.Clear();
 
             List<IGame> games = new List<IGame>();
 
-            for(int i = 0; i < defaultGamesCount; i++)
+            for(int i = 0; i < gameRunCount; i++)
             {
-                games.Add(new Game(new Map(height, length), _gameLogic));
+                games.Add(new Game(i+1, new Map(height, length), _gameLogic));
             }
 
             return games;
