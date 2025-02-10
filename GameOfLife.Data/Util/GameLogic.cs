@@ -1,8 +1,10 @@
-﻿using GameOfLife.Interfaces;
+﻿using GameOfLife.Data.Entities;
+using GameOfLife.Data.Interfaces;
+using GameOfLife.Data.Interfaces.Game;
 
-namespace GameOfLife.Entities
+namespace GameOfLife.Data.Util
 {
-    public class GameHandler(IRule rule) : IGameHandler
+    public class GameLogic(IRule rule) : IGameLogic
     {
         private readonly IRule _rule = rule;
 
@@ -18,9 +20,9 @@ namespace GameOfLife.Entities
 
             var nextMap = new Map(map);
 
-            Parallel.For(0, height, i=>
+            Parallel.For(0, height, i =>
             {
-                for(int j = 0; j < length; j++)
+                for (int j = 0; j < length; j++)
                 {
                     var cell = map.GetCell(i, j);
                     var aliveNeighbours = CountAliveNeighbours(i, j, map);
@@ -29,7 +31,7 @@ namespace GameOfLife.Entities
 
                     nextMap.SetCell(new Cell(i, j, nextState));
                 }
-            });      
+            });
 
             return nextMap;
         }
@@ -45,9 +47,9 @@ namespace GameOfLife.Entities
         {
             int count = 0;
 
-            for(int i = x - 1; i <= x + 1; i++)
+            for (int i = x - 1; i <= x + 1; i++)
             {
-                for(int j = y - 1; j <= y + 1; j++)
+                for (int j = y - 1; j <= y + 1; j++)
                 {
                     if (i == x && j == y || i < 0 || j < 0 || i >= map.Height || j >= map.Length)
                         continue;

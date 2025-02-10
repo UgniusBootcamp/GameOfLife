@@ -1,7 +1,9 @@
-﻿using GameOfLife.Constants;
-using GameOfLife.Interfaces;
+﻿using System.Text;
+using GameOfLife.Data.Constants;
+using GameOfLife.Data.Dto;
+using GameOfLife.Data.Interfaces;
 
-namespace GameOfLife.Entities
+namespace GameOfLife.Data.Entities
 {
     public class Map : IMap
     {
@@ -90,6 +92,62 @@ namespace GameOfLife.Entities
             _map[cell.X, cell.Y] = cell;
         }
 
+        /// <summary>
+        /// Method to get MapDto object from Map
+        /// </summary>
+        /// <returns></returns>
+        public MapDto GetMapDto()
+        {
+            return new MapDto
+            {
+                Height = Height,
+                Length = Length,
+                Cells = CellsToString()
+            };
+        }
+
+        /// <summary>
+        /// Method to get Map from MapDto
+        /// </summary>
+        /// <param name="dto">map dto</param>
+        public Map(MapDto dto)
+        {
+            Length = dto.Length;
+            Height = dto.Height;
+            _map = new Cell[Height, Length];
+
+            for (int i = 0; i < dto.Height; i++)
+            {
+                for (int j = 0; j < dto.Length; j++)
+                {
+                    var cell = dto.Cells[i][j];
+                    var isAlive = cell == GameConstants.MapUnitIsAlive;
+
+                    _map[i,j] = new Cell(i, j, isAlive);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Method for cell 2D array to be represented as string array
+        /// </summary>
+        /// <returns>cell map in string array</returns>
+        private List<string> CellsToString()
+        {
+            var list = new List<string>();
+
+            for (int i = 0; i < Height; i++)
+            {
+                var sb = new StringBuilder();
+                for (int j = 0; j < Length; j++)
+                {
+                    sb.Append(_map[i, j].IsAlive ? GameConstants.MapUnitIsAlive : GameConstants.MapUnitIsDead);
+                }
+                list.Add(sb.ToString());
+            }
+            return list;
+        }
+           
         /// <summary>
         /// Get the alive cells of the map count
         /// </summary>

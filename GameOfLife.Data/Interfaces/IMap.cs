@@ -1,6 +1,7 @@
-﻿using GameOfLife.Entities;
+﻿using GameOfLife.Data.Dto;
+using GameOfLife.Data.Entities;
 
-namespace GameOfLife.Interfaces
+namespace GameOfLife.Data.Interfaces
 {
     public interface IMap
     {
@@ -18,8 +19,15 @@ namespace GameOfLife.Interfaces
         /// </summary>
         /// <param name="cell">cell to set</param>
         void SetCell(Cell cell);
+
         int Length { get; }
         int Height { get; }
         int Population { get; }
+
+        /// <summary>
+        /// Method to get MapDto from IMap
+        /// </summary>
+        /// <returns>IMap object</returns>
+        MapDto GetMapDto();
     }
 }

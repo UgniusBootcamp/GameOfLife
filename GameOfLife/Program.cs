@@ -1,40 +1,28 @@
-﻿using GameOfLife.Constants;
-using GameOfLife.Entities;
-using GameOfLife.Interfaces;
+﻿using GameOfLife.Data.Constants;
+using GameOfLife.Data.Entities.Menus;
+using GameOfLife.Data.Enums;
+using GameOfLife.Data.Interfaces;
+using GameOfLife.Data.Interfaces.Game;
+using GameOfLife.Data.Util;
+using GameOfLife.Dependencies;
+using GameOfLife.UI;
+using Microsoft.Extensions.DependencyInjection;
 
 public class Program
 {
     public static void Main(string[] args)
     {
-        int length;
-        int height;
+        var services = DependencyContainer.ConfigureService();
 
-        int generations;
+        List<IMenuItem> items = new List<IMenuItem>()
+        {
+            new MenuItem( GameConstants.StartGame, () => services.GetRequiredService<GameService>().Execute(GameAction.Start)),
+            new MenuItem( GameConstants.LoadGame, () => services.GetRequiredService<GameService>().Execute(GameAction.Load)),
+            new MenuItem( GameConstants.Exit, () => Environment.Exit(0))
+        };
 
-        Console.WriteLine(GameConstants.LenghtInputMessage);
-        if (!int.TryParse(Console.ReadLine(), out length))
-            length = GameConstants.DefaultMapLength;
+        var mainMenu = new ConsoleMenu(items);
 
-        Console.WriteLine(GameConstants.HeightInputMessage);
-        if (!int.TryParse(Console.ReadLine(), out height))
-            height = GameConstants.DefaultMapHeight;
-
-        Console.WriteLine(GameConstants.GenerationsInputMessage);
-        if (!int.TryParse(Console.ReadLine(), out generations))
-            generations = GameConstants.DefaultGenerations;
-
-        length = length < 0 ? GameConstants.DefaultMapLength : length;
-        height = height < 0 ? GameConstants.DefaultMapHeight : height;
-        generations = generations < 0 ? GameConstants.DefaultGenerations : generations;
-
-        Map map = new(height, length);
-
-        IRule defaultGameRule = new DefaultRule();
-
-        IGameHandler gameHandler = new GameHandler(defaultGameRule);
-
-        IGame game = new Game(map, gameHandler, (g => new GamePrinter(g)));
-
-        game.Run(generations);
+        mainMenu.Show();
     }
 }
