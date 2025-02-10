@@ -44,7 +44,7 @@ namespace GameOfLife.Data.Constants
 
         public const string MainMenuMessage = "Use Arrow keys to navigate. Press Enter to select. Press Escape to exit.\n"; // Main menu message
 
-        public const string OptionMessage = "Select Option: 1 - "; // Option selection message
+        public const string OptionMessage = "Select Option: 1 -"; // Option selection message
 
         public const string DefaultFileExtension = "json"; // Default file extension
 

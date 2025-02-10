@@ -31,6 +31,8 @@ namespace GameOfLife.Data.Util
         /// <returns>recent files</returns>
         public string[] GetDirFiles(string dirPath = GameConstants.GameSaveDirectory , string fileExtension = GameConstants.DefaultFileExtension,  int numb = GameConstants.DefaultFileSelectionNumber)
         {
+            if (!Directory.Exists(dirPath)) return [];
+
             var files = Directory.GetFiles(dirPath, $"*.{fileExtension}");
 
             var recentFiles = files
@@ -42,6 +44,17 @@ namespace GameOfLife.Data.Util
             var fileNames = recentFiles.Select(f => f.Name).ToArray();
 
             return fileNames;
+        }
+
+        /// <summary>
+        /// Helper to check if directory exists
+        /// </summary>
+        public void DirectoryCheck(string pathToDir)
+        {
+            if (!Directory.Exists(pathToDir))
+            {
+                Directory.CreateDirectory(pathToDir);
+            }
         }
     }
 }

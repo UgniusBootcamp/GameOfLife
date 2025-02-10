@@ -49,7 +49,7 @@ namespace GameOfLife.Data.Util
         {
             try
             {
-                DirectoryCheck();
+                FileSystem.Instance.DirectoryCheck(dir);
 
                 fileName = dir + fileName + GameConstants.JsonExtension;
 
@@ -60,17 +60,6 @@ namespace GameOfLife.Data.Util
             {
                 _outputHandler.Output($"{GameConstants.FailedToSaveGameMessage} {e.Message}");
             }
-        }
-
-        /// <summary>
-        /// Helper to check if directory exists
-        /// </summary>
-        private void DirectoryCheck()
-        {
-            if (!Directory.Exists(dir))
-            {
-                Directory.CreateDirectory(dir);
-            }
-        }
+        }     
     }
 }
