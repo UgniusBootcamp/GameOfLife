@@ -95,7 +95,8 @@ namespace GameOfLife.Data.Util
         {
             lock(_gamePrinter)
             {
-                _gamePrinter.PrintGames(message, games.Skip(firstGame).Take(gamesToShow));
+                var header = String.Format("Generation - {0} | Alive Cells - {1} | Live Games - {2}", games.First().Generation, AliveCells, games.Count());
+                _gamePrinter.PrintGames(header, message, games.Skip(firstGame).Take(gamesToShow));
             }
         }
 
@@ -153,6 +154,14 @@ namespace GameOfLife.Data.Util
 
             firstGame--;
             Print();
+        }
+
+        protected int AliveCells 
+        {
+            get
+            {
+                return games.Sum(g => g.Map.Population);
+            }
         }
 
         /// <summary>
