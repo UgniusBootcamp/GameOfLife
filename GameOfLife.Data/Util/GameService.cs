@@ -14,7 +14,7 @@ namespace GameOfLife.Data.Util
         private int firstGame = 0;
         private int gamesToShow = 8;
         private Barrier? _barrier;
-        private string[] messages = [GameConstants.GameRunningMessage];
+        private string message = GameConstants.GameRunningMessage;
 
         /// <summary>
         /// Execution of games
@@ -85,6 +85,7 @@ namespace GameOfLife.Data.Util
                 ListenForKeyPress();
             }
             gamesToShow = games.Count() < gamesToShow ? games.Count() : gamesToShow;
+            _outputHandler.Clear();
         }
 
         /// <summary>
@@ -94,7 +95,7 @@ namespace GameOfLife.Data.Util
         {
             lock(_gamePrinter)
             {
-                _gamePrinter.PrintGames(messages, games.Skip(firstGame).Take(gamesToShow));
+                _gamePrinter.PrintGames(message, games.Skip(firstGame).Take(gamesToShow));
             }
         }
 
@@ -104,7 +105,7 @@ namespace GameOfLife.Data.Util
         protected override void Pause()
         {
             _isPaused = true;
-            messages = [GameConstants.GamePausedMessage, GameConstants.GameIsPause];
+            message = String.Format("{0}. {1}", GameConstants.GamePausedMessage, GameConstants.GameIsPause);
             Print();
         }
 
@@ -114,7 +115,7 @@ namespace GameOfLife.Data.Util
         protected override void Resume()
         {
             _isPaused = false;
-            messages = [GameConstants.GameRunningMessage];
+            message = GameConstants.GameRunningMessage;
             Print();
         }
 

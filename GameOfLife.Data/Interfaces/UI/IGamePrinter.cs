@@ -9,6 +9,6 @@ namespace GameOfLife.Data.Interfaces.UI
         /// </summary>
         /// <param name="messages">messages to print</param>
         /// <param name="games">games to print</param>
-        void PrintGames(string[] messages, IEnumerable<IGame> games);
+        void PrintGames(string message, IEnumerable<IGame> games);
     }
 }

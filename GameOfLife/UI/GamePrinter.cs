@@ -13,11 +13,10 @@ namespace GameOfLife.UI
         /// </summary>
         /// <param name="messages">message below games</param>
         /// <param name="games">games to print</param>
-        public void PrintGames(string[] messages, IEnumerable<IGame> games)
+        public void PrintGames(string message, IEnumerable<IGame> games)
         {
             if (games.Count() == 0) return;
 
-            Console.Clear();
 
             int xOffset = 0;
             int yOffset = 0;
@@ -35,7 +34,6 @@ namespace GameOfLife.UI
                     xOffset = 0;
                     if (yOffset + 2 * (maxHeight + GameConstants.NextMapHeightOffset) > Console.WindowHeight)
                     {
-                        Console.Clear();
                         yOffset = 0;
                     }
                     else
@@ -45,9 +43,11 @@ namespace GameOfLife.UI
                 }
             }
 
-            Console.SetCursorPosition(0, yOffset + maxHeight + GameConstants.MessageOffset);
+            Console.SetCursorPosition(0, yOffset += maxHeight + GameConstants.MessageOffset);
             Console.ForegroundColor = ConsoleColor.Green;
-            messages.ToList().ForEach(message => Console.WriteLine(message));
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(0, yOffset);
+            Console.WriteLine(message);
             Console.ResetColor();
         }
 
