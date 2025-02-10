@@ -20,7 +20,7 @@ namespace GameOfLife.Data.Util
         {
             try
             {
-                fileName = dir + fileName;
+                fileName = String.Format("{0}{1}", dir, fileName);
 
                 if (!File.Exists(fileName))
                 {
@@ -51,7 +51,7 @@ namespace GameOfLife.Data.Util
             {
                 FileSystem.Instance.DirectoryCheck(dir);
 
-                fileName = dir + fileName + GameConstants.JsonExtension;
+                fileName = String.Format("{0}{1}{2}", dir, fileName, GameConstants.JsonExtension);
 
                 var json = JsonSerializer.Serialize(games, new JsonSerializerOptions { WriteIndented = true });
                 File.WriteAllText(fileName, json);
