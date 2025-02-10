@@ -56,7 +56,11 @@ namespace GameOfLife.Data.Util
         {
             while (_isRunning)
             {
-                if (_isPaused) continue;
+                if (_isPaused)
+                {
+                    Thread.Sleep(10);
+                    continue;
+                }
 
                 game.Iterate();
 
