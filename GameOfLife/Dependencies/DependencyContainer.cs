@@ -4,22 +4,30 @@ using GameOfLife.Data.Interfaces.Game;
 using GameOfLife.Data.Interfaces.UI;
 using GameOfLife.Data.Util;
 using GameOfLife.UI;
+using Microsoft.Extensions.DependencyInjection;
 
 
 namespace GameOfLife.Dependencies
 {
-    public class DependencyContainer
+    public static class DependencyContainer
     {
-        static IInputHandler ConsoleInput => new ConsoleInput();
-        static IOutputHandler ConsoleOutput => new ConsoleOutput();
-        static IOptionSelector OptionSelector => new OptionSelector(ConsoleOutput, ConsoleInput);
-        static readonly IRule DefaultRule = new DefaultRule();
-        static readonly IGameLogic GameLogic = new GameLogic(DefaultRule);
-        static IGameCreator GameCreationService => new GameCreationService(ConsoleInput, GameLogic);
-        static IGameLoader GameLoadingService => new GameLoaderService(GameLogic, JsonFileService, OptionSelector);
-        static IFileService JsonFileService => new JsonFileService(ConsoleOutput);
-        static IGameSaver GameSaver => new GameSaver(ConsoleInput, JsonFileService);
-        public static GameController GameService => new GameService(GameCreationService, GameLoadingService, GamePrinter, GameSaver, ConsoleOutput);
-        static IGamePrinter GamePrinter => new GamePrinter();
+        public static ServiceProvider ConfigureService()
+        {
+            var services = new ServiceCollection();
+
+            services.AddSingleton<IInputHandler, ConsoleInput>();
+            services.AddSingleton<IOutputHandler, ConsoleOutput>();
+            services.AddSingleton<IOptionSelector, OptionSelector>();
+            services.AddSingleton<IRule, DefaultRule>();
+            services.AddSingleton<IGameLogic, GameLogic>();
+            services.AddSingleton<IFileService, JsonFileService>();
+            services.AddSingleton<IGamePrinter, GamePrinter>();
+            services.AddScoped<GameService>();
+            services.AddTransient<IGameCreator, GameCreationService>();
+            services.AddTransient<IGameLoader, GameLoaderService>();
+            services.AddTransient<IGameSaver, GameSaver>();
+
+            return services.BuildServiceProvider();
+        }
     }
 }
