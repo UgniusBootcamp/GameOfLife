@@ -93,5 +93,7 @@ namespace GameOfLife.Data.Constants
         public const string HowManyGame = "Type how many games to run 1 -"; // how many games to run message
 
         public const string Header = "Generation - {0} | Alive Cells - {1} | Live Games - {2}"; // game header
+
+        public const string ScreenToSmall = "Your screen is too small. You can start other game by pressing 'P' to pause and then 'N' for New Game";
     }
 }

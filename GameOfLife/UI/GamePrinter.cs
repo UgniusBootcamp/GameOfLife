@@ -40,7 +40,7 @@ namespace GameOfLife.UI
             if (maxHeight + GameConstants.NextMapHeightOffset + yOffset >= Console.WindowHeight ||
                 maxLength + GameConstants.NextMapLengthOffset + xOffset >= Console.WindowWidth)
             {
-                Console.WriteLine("Your screen is too small, choose another grid");
+                Console.WriteLine(GameConstants.ScreenToSmall);
                 return;
             }
 
