@@ -38,7 +38,7 @@ namespace GameOfLife.Data.Constants
 
         public const string GameRunningMessage = "Press 'P' to pause, 'Q' to exit, Left/Right Arrow to switch"; // Message for game running
 
-        public const string GamePausedMessage = "Press 'R' to resume, Press 'S' to save, 'Q' to exit, Left/Right Arrow to switch"; // Message for game paused
+        public const string GamePausedMessage = "Press 'R' to resume, 'S' to save, 'L' to Load Game, 'N' for New Game, 'Q' to exit, Left/Right Arrow to switch"; // Message for game paused
 
         public const string GameSaveDirectory = "GameSaves"; // Folder for game saves
 
@@ -52,7 +52,7 @@ namespace GameOfLife.Data.Constants
 
         public const string FileNameEnterMessage = "Enter file name:"; // File name entering message
 
-        public const string NoGameFoundMessage = "No Game Found"; // No game was found message
+        public const string NoGameFoundMessage = "No Games Found. Starting New Game!"; // No game was found message
 
         public const string StartNewGameMessage = "Press 'N' to Start New Game"; // Action to start new game message
 

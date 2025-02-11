@@ -9,12 +9,12 @@ namespace GameOfLife.Data.Util
         : GameController(gameCreator, gameLoader, gamePrinter, gameSaver, outputHandler)
     {
         private IEnumerable<IGame> games = [];
-        private bool _isRunning = true;
+        private bool _isRunning;
         private bool _isPaused;
-        private int firstGame = 0;
+        private int firstGame;
         private int gamesToShow = GameConstants.GamesToShow;
         private Barrier? _barrier;
-        private string message = GameConstants.GameRunningMessage;
+        private string message = string.Empty;
 
         /// <summary>
         /// Execution of games
@@ -22,23 +22,38 @@ namespace GameOfLife.Data.Util
         /// <param name="action">action of how games are created</param>
         public override void Execute(GameAction action)
         {
+            firstGame = 0;
+            _isRunning = false;
+            _isPaused = false;
+            message = GameConstants.GameRunningMessage;
+
             _outputHandler.Clear();
 
             switch (action)
             {
                 case GameAction.Start:
                     games = _gameCreator.CreateGames();
-                    gamesToShow = games.Count() < gamesToShow ? games.Count() : gamesToShow;
                     break;
                 case GameAction.Load:
-                    Load();
+                    games = _gameLoader.LoadGames();
+                    _outputHandler.Clear();
                     break;
             }
+
+            if (!games.Any())
+            {
+                _outputHandler.Output(GameConstants.NoGameFoundMessage);
+                games = _gameCreator.CreateGames();
+            }
+
+            gamesToShow = Math.Min(games.Count(), gamesToShow);
 
             _barrier = new Barrier(games.Count(), (b) =>
             {
                 Print();
             });
+
+            _isRunning = true;
 
             var threads = games.Select(g => new Thread(() => Run(g))).ToList();
             threads.ForEach(t => t.Start());
@@ -68,24 +83,6 @@ namespace GameOfLife.Data.Util
 
                 Thread.Sleep(GameConstants.DefaultDelay);
             }
-        }
-
-        /// <summary>
-        /// Helper method to load games
-        /// </summary>
-        private void Load()
-        {
-            games = _gameLoader.LoadGames();
-            if (games.Count() == 0)
-            {
-                _outputHandler.Clear();
-                _outputHandler.Output(GameConstants.NoGameFoundMessage);
-                _outputHandler.Output(GameConstants.StartNewGameMessage);
-
-                ListenForKeyPress();
-            }
-            gamesToShow = games.Count() < gamesToShow ? games.Count() : gamesToShow;
-            _outputHandler.Clear();
         }
 
         /// <summary>
@@ -173,6 +170,13 @@ namespace GameOfLife.Data.Util
             }
         }
 
+        private void StopAndRestart(GameAction action)
+        {
+            _isRunning = false;
+            Thread.Sleep(100);
+            Execute(action);
+        }
+
         /// <summary>
         /// key listener for user action for methods to perfom
         /// </summary>
@@ -198,7 +202,12 @@ namespace GameOfLife.Data.Util
                             Save();
                             break;
                         case ConsoleKey.N:
-                            Execute(GameAction.Start);
+                            if (!_isPaused) break;
+                            StopAndRestart(GameAction.Start);
+                            break;
+                        case ConsoleKey.L:
+                            if (!_isPaused) break;
+                            StopAndRestart(GameAction.Load);
                             break;
                         case ConsoleKey.LeftArrow:
                             MoveLeft();
