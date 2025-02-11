@@ -22,7 +22,7 @@ namespace GameOfLife.Data.Constants
 
         public  const int DefaultResurrectionNeighborCount = 3; // value for dead cell to become alive
 
-        public const int DefaultMapSize= 20; // Default map length
+        public const int DefaultMapSize = 40; // Default map length
 
         public const int DefaultDelay = 1000; // Default delay between generations
 

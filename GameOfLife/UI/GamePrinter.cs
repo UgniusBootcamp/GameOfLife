@@ -13,7 +13,7 @@ namespace GameOfLife.UI
         /// </summary>
         /// <param name="messages">message below games</param>
         /// <param name="games">games to print</param>
-        public void PrintGames(string header, string footer, IEnumerable<IGame> games)
+        public void PrintGames(string header, string menu, IEnumerable<IGame> games)
         {
             if (games.Count() == 0) return;
 
@@ -23,12 +23,26 @@ namespace GameOfLife.UI
 
 
             Console.SetCursorPosition(xOffset, yOffset);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(xOffset, yOffset++);
+            Console.WriteLine(menu);
+            Console.ResetColor();
+
+            Console.SetCursorPosition(xOffset, yOffset);
             Console.Write(new string(' ', Console.WindowWidth));
             Console.SetCursorPosition(xOffset, yOffset++);
             Console.WriteLine(header);
 
             int maxHeight = games.Max(g => g.Map.Height);
             int maxLength = games.Max(g => g.Map.Length);
+
+            if (maxHeight + GameConstants.NextMapHeightOffset + yOffset >= Console.WindowHeight ||
+                maxLength + GameConstants.NextMapLengthOffset + xOffset >= Console.WindowWidth)
+            {
+                Console.WriteLine("Your screen is too small, choose another grid");
+                return;
+            }
 
             foreach (var game in games)
             {
@@ -49,12 +63,7 @@ namespace GameOfLife.UI
                 }
             }
 
-            Console.SetCursorPosition(0, yOffset += maxHeight + GameConstants.MessageOffset);
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write(new string(' ', Console.WindowWidth));
-            Console.SetCursorPosition(0, yOffset);
-            Console.WriteLine(footer);
-            Console.ResetColor();
+            
         }
 
         /// <summary>
