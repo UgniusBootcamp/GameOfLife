@@ -40,7 +40,7 @@ namespace GameOfLife.UI
                     xOffset = 0;
                     if (yOffset + 2 * (maxHeight + GameConstants.NextMapHeightOffset) > Console.WindowHeight)
                     {
-                        yOffset = 1;
+                        break;
                     }
                     else
                     {
