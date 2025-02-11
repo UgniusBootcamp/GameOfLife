@@ -12,7 +12,7 @@ namespace GameOfLife.Data.Util
         private bool _isRunning;
         private bool _isPaused;
         private int firstGame;
-        private int gamesToShow = GameConstants.GamesToShow;
+        private int gamesToShow;
         private Barrier? _barrier;
         private string message = string.Empty;
 
@@ -46,7 +46,7 @@ namespace GameOfLife.Data.Util
                 games = _gameCreator.CreateGames();
             }
 
-            gamesToShow = Math.Min(games.Count(), gamesToShow);
+            gamesToShow = Math.Min(games.Count(), GameConstants.GamesToShow);
 
             _barrier = new Barrier(games.Count(), (b) =>
             {
