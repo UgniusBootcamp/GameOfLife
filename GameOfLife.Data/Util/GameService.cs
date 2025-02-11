@@ -170,6 +170,10 @@ namespace GameOfLife.Data.Util
             }
         }
 
+        /// <summary>
+        /// Method for stoping and restarting games
+        /// </summary>
+        /// <param name="action">action how to get games</param>
         private void StopAndRestart(GameAction action)
         {
             _isRunning = false;
