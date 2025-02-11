@@ -17,7 +17,7 @@ namespace GameOfLife.Data.Util
         /// <returns>new games</returns>
         public IEnumerable<IGame> CreateGames()
         {
-            int gameRunCount = _inputHandler.GetInt($"Type how many games to run 1 - {GameConstants.DefaultGameRunCount}");
+            int gameRunCount = _inputHandler.GetInt(String.Format("{0} {1}", GameConstants.HowManyGame, GameConstants.DefaultGameRunCount));
             if (gameRunCount <= 0 || gameRunCount > GameConstants.DefaultGameRunCount) gameRunCount = GameConstants.DefaultGameRunCount;
 
             int length = _inputHandler.GetInt(String.Format("{0}{1}", GameConstants.LenghtInputMessage, GameConstants.DefaultMapSize));

@@ -12,7 +12,7 @@ namespace GameOfLife.Data.Util
         private bool _isRunning = true;
         private bool _isPaused;
         private int firstGame = 0;
-        private int gamesToShow = 8;
+        private int gamesToShow = GameConstants.GamesToShow;
         private Barrier? _barrier;
         private string message = GameConstants.GameRunningMessage;
 
@@ -95,7 +95,7 @@ namespace GameOfLife.Data.Util
         {
             lock(_gamePrinter)
             {
-                var header = String.Format("Generation - {0} | Alive Cells - {1} | Live Games - {2}", games.First().Generation, AliveCells, games.Count());
+                var header = String.Format(GameConstants.Header, games.First().Generation, AliveCells, games.Count());
                 _gamePrinter.PrintGames(header, message, games.Skip(firstGame).Take(gamesToShow));
             }
         }
@@ -140,6 +140,9 @@ namespace GameOfLife.Data.Util
             }
         }
 
+        /// <summary>
+        /// Method to move right to displayed list
+        /// </summary>
         protected void MoveRight()
         {
             if (firstGame + gamesToShow == games.Count()) return;
@@ -148,6 +151,9 @@ namespace GameOfLife.Data.Util
             Print();
         }
 
+        /// <summary>
+        /// Method to move left to displayed list
+        /// </summary>
         protected void MoveLeft()
         {
             if(firstGame == 0) return;
@@ -156,6 +162,9 @@ namespace GameOfLife.Data.Util
             Print();
         }
 
+        /// <summary>
+        /// Variable to see how many cells are alive across all games
+        /// </summary>
         protected int AliveCells 
         {
             get
