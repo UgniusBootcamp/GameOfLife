@@ -6,8 +6,8 @@ namespace GameOfLife.Data.Entities.Games
 {
     public class Game : GameBase
     {
-        public Game(IMap map, IGameLogic gameHandler) : base(map, gameHandler) { }
-        public Game(int generation, IMap map, IGameLogic gameHandler) : base(generation, map, gameHandler) { }
+        public Game(int id, IMap map, IGameLogic gameHandler) : base(id, map, gameHandler) { }
+        public Game(int id, int generation, IMap map, IGameLogic gameHandler) : base(id, generation, map, gameHandler) { }
 
         /// <summary>
         /// Method to perform one iteration of a game

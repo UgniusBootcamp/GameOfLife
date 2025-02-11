@@ -9,10 +9,12 @@ namespace GameOfLife.Data.Util
         : GameController(gameCreator, gameLoader, gamePrinter, gameSaver, outputHandler)
     {
         private IEnumerable<IGame> games = [];
-        private bool _isRunning = true;
+        private bool _isRunning;
         private bool _isPaused;
+        private int firstGame;
+        private int gamesToShow;
         private Barrier? _barrier;
-        private string[] messages = [GameConstants.GameRunningMessage];
+        private string message = string.Empty;
 
         /// <summary>
         /// Execution of games
@@ -20,6 +22,11 @@ namespace GameOfLife.Data.Util
         /// <param name="action">action of how games are created</param>
         public override void Execute(GameAction action)
         {
+            firstGame = 0;
+            _isRunning = false;
+            _isPaused = false;
+            message = GameConstants.GameRunningMessage;
+
             _outputHandler.Clear();
 
             switch (action)
@@ -28,14 +35,25 @@ namespace GameOfLife.Data.Util
                     games = _gameCreator.CreateGames();
                     break;
                 case GameAction.Load:
-                    Load();
+                    games = _gameLoader.LoadGames();
+                    _outputHandler.Clear();
                     break;
             }
+
+            if (!games.Any())
+            {
+                _outputHandler.Output(GameConstants.NoGameFoundMessage);
+                games = _gameCreator.CreateGames();
+            }
+
+            gamesToShow = Math.Min(games.Count(), GameConstants.GamesToShow);
 
             _barrier = new Barrier(games.Count(), (b) =>
             {
                 Print();
             });
+
+            _isRunning = true;
 
             var threads = games.Select(g => new Thread(() => Run(g))).ToList();
             threads.ForEach(t => t.Start());
@@ -53,7 +71,11 @@ namespace GameOfLife.Data.Util
         {
             while (_isRunning)
             {
-                if (_isPaused) continue;
+                if (_isPaused)
+                {
+                    Thread.Sleep(10);
+                    continue;
+                }
 
                 game.Iterate();
 
@@ -64,29 +86,14 @@ namespace GameOfLife.Data.Util
         }
 
         /// <summary>
-        /// Helper method to load games
-        /// </summary>
-        private void Load()
-        {
-            games = _gameLoader.LoadGames();
-            if (games.Count() == 0)
-            {
-                _outputHandler.Clear();
-                _outputHandler.Output(GameConstants.NoGameFoundMessage);
-                _outputHandler.Output(GameConstants.StartNewGameMessage);
-
-                ListenForKeyPress();
-            }
-        }
-
-        /// <summary>
         /// Method to print games
         /// </summary>
         protected override void Print()
         {
             lock(_gamePrinter)
             {
-                _gamePrinter.PrintGames(messages, games.ToList());
+                var header = String.Format(GameConstants.Header, games.First().Generation, AliveCells, games.Count());
+                _gamePrinter.PrintGames(header, message, games.Skip(firstGame).Take(gamesToShow));
             }
         }
 
@@ -96,7 +103,7 @@ namespace GameOfLife.Data.Util
         protected override void Pause()
         {
             _isPaused = true;
-            messages = [GameConstants.GamePausedMessage, GameConstants.GameIsPause];
+            message = String.Format("{0}. {1}", GameConstants.GamePausedMessage, GameConstants.GameIsPause);
             Print();
         }
 
@@ -106,7 +113,7 @@ namespace GameOfLife.Data.Util
         protected override void Resume()
         {
             _isPaused = false;
-            messages = [GameConstants.GameRunningMessage];
+            message = GameConstants.GameRunningMessage;
             Print();
         }
 
@@ -128,6 +135,50 @@ namespace GameOfLife.Data.Util
                 _gameSaver.SaveGames(games);
                 Print();
             }
+        }
+
+        /// <summary>
+        /// Method to move right to displayed list
+        /// </summary>
+        protected void MoveRight()
+        {
+            if (firstGame + gamesToShow == games.Count()) return;
+
+            firstGame++;
+            Print();
+        }
+
+        /// <summary>
+        /// Method to move left to displayed list
+        /// </summary>
+        protected void MoveLeft()
+        {
+            if(firstGame == 0) return;
+
+            firstGame--;
+            Print();
+        }
+
+        /// <summary>
+        /// Variable to see how many cells are alive across all games
+        /// </summary>
+        protected int AliveCells 
+        {
+            get
+            {
+                return games.Sum(g => g.Map.Population);
+            }
+        }
+
+        /// <summary>
+        /// Method for stoping and restarting games
+        /// </summary>
+        /// <param name="action">action how to get games</param>
+        private void StopAndRestart(GameAction action)
+        {
+            _isRunning = false;
+            Thread.Sleep(100);
+            Execute(action);
         }
 
         /// <summary>
@@ -155,7 +206,18 @@ namespace GameOfLife.Data.Util
                             Save();
                             break;
                         case ConsoleKey.N:
-                            Execute(GameAction.Start);
+                            if (!_isPaused) break;
+                            StopAndRestart(GameAction.Start);
+                            break;
+                        case ConsoleKey.L:
+                            if (!_isPaused) break;
+                            StopAndRestart(GameAction.Load);
+                            break;
+                        case ConsoleKey.LeftArrow:
+                            MoveLeft();
+                            break;
+                        case ConsoleKey.RightArrow:
+                            MoveRight();
                             break;
                     }
                 }

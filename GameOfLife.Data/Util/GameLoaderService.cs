@@ -24,7 +24,9 @@ namespace GameOfLife.Data.Util
 
             var gameDtos = _fileService.ReadGame(fileName);
 
-            var games = gameDtos.Select(g => (IGame)(new Game(g.Generation, new Map(g.Map), _gameLogic))).ToList();
+            int index = 0;
+
+            var games = gameDtos.Select(g => (IGame)(new Game(++index, g.Generation, new Map(g.Map), _gameLogic))).ToList();
 
             return games;
         }

@@ -5,7 +5,7 @@ namespace GameOfLife.Data.Interfaces.Game
 {
     public interface IGame
     {
-
+        int Id { get; }
         int Generation { get; }
         IMap Map { get; }
 

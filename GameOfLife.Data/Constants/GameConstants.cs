@@ -8,9 +8,9 @@ namespace GameOfLife.Data.Constants
 
         public const char Dead = ' '; // Dead cell representation
 
-        public const string LenghtInputMessage = "Enter the length of the map: "; // Message for inputting the length of the map
+        public const string LenghtInputMessage = "Enter the length of the map 1 - "; // Message for inputting the length of the map
 
-        public const string HeightInputMessage = "Enter the height of the map: "; // Message for inputting the height of the map
+        public const string HeightInputMessage = "Enter the height of the map 1 - "; // Message for inputting the height of the map
 
         public const string GenerationMessage = "Generation: {0}"; // Message for displaying the current generation
 
@@ -22,7 +22,7 @@ namespace GameOfLife.Data.Constants
 
         public  const int DefaultResurrectionNeighborCount = 3; // value for dead cell to become alive
 
-        public const int DefaultMapSize= 10; // Default map length
+        public const int DefaultMapSize = 40; // Default map length
 
         public const int DefaultDelay = 1000; // Default delay between generations
 
@@ -36,9 +36,9 @@ namespace GameOfLife.Data.Constants
 
         public const string InvalidCellPositionMessage = "Invalid cell position"; // Message for invalid cell position
 
-        public const string GameRunningMessage = "Press 'P' to pause, 'Q' to exit"; // Message for game running
+        public const string GameRunningMessage = "Press 'P' to pause, 'Q' to exit, Left/Right Arrow to switch"; // Message for game running
 
-        public const string GamePausedMessage = "Press 'R' to resume, Press 'S' to save, 'Q' to exit"; // Message for game paused
+        public const string GamePausedMessage = "Press 'R' to resume, 'S' to save, 'L' to Load Game, 'N' for New Game, 'Q' to exit, Left/Right Arrow to switch"; // Message for game paused
 
         public const string GameSaveDirectory = "GameSaves"; // Folder for game saves
 
@@ -52,7 +52,7 @@ namespace GameOfLife.Data.Constants
 
         public const string FileNameEnterMessage = "Enter file name:"; // File name entering message
 
-        public const string NoGameFoundMessage = "No Game Found"; // No game was found message
+        public const string NoGameFoundMessage = "No Games Found. Starting New Game!"; // No game was found message
 
         public const string StartNewGameMessage = "Press 'N' to Start New Game"; // Action to start new game message
 
@@ -72,7 +72,9 @@ namespace GameOfLife.Data.Constants
 
         public const string Exit = "Exit"; // Exit game message
 
-        public const int NextMapLengthOffset = 10; // Next map to print offset
+        public const int NextMapLengthOffset = 10; // Next map to print x offset
+
+        public const int NextMapHeightOffset = 5; // Next map to print y offset
 
         public const int MessageOffset = 4; // Offset to print messages
 
@@ -82,6 +84,16 @@ namespace GameOfLife.Data.Constants
 
         public const int DefaultFileSelectionNumber = 5; // Default number to select files
 
-        public const int DefaultGameRunCount = 2; // Number of games to run
+        public const int DefaultGameRunCount = 1000; // Number of games to run
+
+        public const string Game = "Game - "; // Game
+         
+        public const int GamesToShow = 8; // Game to Show 
+
+        public const string HowManyGame = "Type how many games to run 1 -"; // how many games to run message
+
+        public const string Header = "Generation - {0} | Alive Cells - {1} | Live Games - {2}"; // game header
+
+        public const string ScreenToSmall = "Your screen is too small. You can start other game by pressing 'P' to pause and then 'N' for New Game";
     }
 }
